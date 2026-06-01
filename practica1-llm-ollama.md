@@ -45,7 +45,6 @@ Como dato de referencia, al ejecutar el modelo Gemma 3 4B se observó un uso de 
 
 <!-- Insertar captura del Administrador de tareas mostrando 86% de RAM -->
 ![Uso de memoria RAM con Gemma 3 4B](assets/img/practica1/memoria-gemma.png)
-
 ---
 
 ## 3. Descarga de modelos
