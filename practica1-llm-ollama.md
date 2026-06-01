@@ -25,7 +25,7 @@ La versión instalada fue `ollama version 0.24.0`.
 **Evidencia — verificación de versión:**
 
 <!-- Insertar captura de pantalla de ollama --version -->
-![Verificación de versión de Ollama](assets/img/practica1/ollama-version.png)
+![Verificación de versión de Ollama](assets/img/p1/ollama-version.png)
 
 ---
 
@@ -44,7 +44,7 @@ Como dato de referencia, al ejecutar el modelo Gemma 3 4B se observó un uso de 
 **Evidencia — uso de memoria con Gemma 3 4B activo:**
 
 <!-- Insertar captura del Administrador de tareas mostrando 86% de RAM -->
-![Uso de memoria RAM con Gemma 3 4B](assets/img/practica1/memoria-gemma.png)
+![Uso de memoria RAM con Gemma 3 4B](assets/img/p1/memoria-gemma.png)
 ---
 
 ## 3. Descarga de modelos
@@ -53,16 +53,31 @@ Se descargaron cinco modelos ejecutando los siguientes comandos uno por uno:
 
 ```
 ollama pull llama3.2:3b
+```
+![alt text](assets/img/p1/llama3.png)
+
+```
 ollama pull gemma3:4b
+```
+![alt text](assets/img/p1/gemma.png)
+
+```
 ollama pull qwen2.5:7b
+```
+![
+](assets/img/p1/qwen.png)
+
+
+```
 ollama pull phi4-mini
+````
+![alt text](assets/img/p1/phi4.png)
+
+
+```
 ollama pull tinyllama:1.1b-chat-v1-q8_0
 ```
-
-**Evidencia — descarga de modelos:**
-
-<!-- Insertar captura de pantalla de las descargas -->
-![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
+![alt text](assets/img/p1/tiny.png)
 
 ---
 
