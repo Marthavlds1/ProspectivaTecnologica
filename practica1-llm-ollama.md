@@ -95,31 +95,127 @@ para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje
 
 ## 5. Ejecución de modelos
 
-Cada modelo se ejecutó con el comando `ollama run` seguido del mismo prompt. Ejemplo con el primer modelo:
+Cada modelo se ejecutó con el comando `ollama run` seguido del mismo prompt. A continuación se muestran los comandos utilizados para cada modelo con los cuatro prompts.
+
+---
+
+### TinyLlama 1.1B
+
+```
+ollama run tinyllama:1.1b-chat-v1-q8_0 "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
+```
+```
+ollama run tinyllama:1.1b-chat-v1-q8_0 "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
+```
+```
+ollama run tinyllama:1.1b-chat-v1-q8_0 "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
+```
+```
+ollama run tinyllama:1.1b-chat-v1-q8_0 "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
+```
+
+<!-- Insertar captura de pantalla de tinyllama respondiendo -->
+![Ejecución de tinyllama](assets/img/practica1/run-tinyllama.png)
+
+---
+
+### Phi4-mini
+
+```
+ollama run phi4-mini "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
+```
+```
+ollama run phi4-mini "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
+```
+```
+ollama run phi4-mini "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
+```
+```
+ollama run phi4-mini "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
+```
+
+<!-- Insertar captura de pantalla de phi4-mini respondiendo -->
+![Ejecución de phi4-mini](assets/img/practica1/run-phi4.png)
+
+---
+
+### Llama 3.2 3B
 
 ```
 ollama run llama3.2:3b "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
 ```
+```
+ollama run llama3.2:3b "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
+```
+```
+ollama run llama3.2:3b "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
+```
+```
+ollama run llama3.2:3b "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
+```
 
-**Evidencia — ejecución de modelos:**
-
-<!-- Insertar capturas de pantalla de cada modelo respondiendo -->
+<!-- Insertar captura de pantalla de llama3.2:3b respondiendo -->
 ![Ejecución de llama3.2:3b](assets/img/practica1/run-llama.png)
 
-<!-- Insertar captura de pantalla de gemma3:4b -->
+---
+
+### Gemma 3 4B
+
+```
+ollama run gemma3:4b "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
+```
+```
+ollama run gemma3:4b "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
+```
+```
+ollama run gemma3:4b "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
+```
+```
+ollama run gemma3:4b "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
+```
+
+<!-- Insertar captura de pantalla de gemma3:4b respondiendo -->
 ![Ejecución de gemma3:4b](assets/img/practica1/run-gemma.png)
 
-<!-- Insertar captura de pantalla de qwen2.5:7b -->
+---
+
+### Qwen 2.5 7B
+
+```
+ollama run qwen2.5:7b "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
+```
+```
+ollama run qwen2.5:7b "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
+```
+```
+ollama run qwen2.5:7b "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
+```
+```
+ollama run qwen2.5:7b "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
+```
+
+<!-- Insertar captura de pantalla de qwen2.5:7b respondiendo -->
 ![Ejecución de qwen2.5:7b](assets/img/practica1/run-qwen.png)
 
-<!-- Insertar captura de pantalla de mistral:7b -->
+---
+
+### Mistral 7B
+
+```
+ollama run mistral:7b "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
+```
+```
+ollama run mistral:7b "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
+```
+```
+ollama run mistral:7b "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
+```
+```
+ollama run mistral:7b "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
+```
+
+<!-- Insertar captura de pantalla de mistral:7b respondiendo -->
 ![Ejecución de mistral:7b](assets/img/practica1/run-mistral.png)
-
-<!-- Insertar captura de pantalla de phi4-mini -->
-![Ejecución de phi4-mini](assets/img/practica1/run-phi4.png)
-
-<!-- Insertar captura de pantalla de tinyllama -->
-![Ejecución de tinyllama](assets/img/practica1/run-tinyllama.png)
 
 ---
 
@@ -142,27 +238,27 @@ Información obtenida de las model cards de Hugging Face y de la terminal con `o
 
 **¿Qué modelo fue más fácil de instalar y ejecutar?**
 
-<!-- Escribir respuesta aquí -->
+Todos los modelos se instalaron de manera similar mediante `ollama pull`, sin pasos adicionales de configuración. Sin embargo, en cuanto a ejecución, TinyLlama 1.1B fue el más inmediato: arrancó y respondió en segundos, sin tiempo de espera perceptible. Phi4-mini también resultó ágil, con una latencia notablemente menor que los modelos de mayor tamaño.
 
 **¿Qué modelo respondió mejor en español?**
 
-<!-- Escribir respuesta aquí -->
+TinyLlama, Phi4-mini y Llama 3.2 3B respondieron correctamente en español sin necesidad de ajustes adicionales en el prompt. De los tres, Llama 3.2 y Phi4-mini ofrecieron respuestas más estructuradas y con mayor coherencia académica, aunque TinyLlama destacó por su velocidad de respuesta. Gemma 3 4B, en cambio, no respondió de forma del todo adecuada al contexto solicitado.
 
 **¿Qué diferencia observaste entre un modelo pequeño y uno más grande?**
 
-<!-- Escribir respuesta aquí -->
+La diferencia más evidente fue el tiempo de respuesta. TinyLlama 1.1B respondió de manera casi inmediata, mientras que Llama 3.2 3B tardó aproximadamente un minuto o más en generar su respuesta. Sin embargo, los modelos más grandes tendieron a producir respuestas más elaboradas y mejor redactadas. Esto sugiere que existe un balance entre velocidad y calidad: los modelos pequeños son más ágiles pero pueden sacrificar profundidad, mientras que los modelos más grandes generan contenido de mayor calidad a costa de mayor tiempo de cómputo.
 
 **¿Qué importancia tiene la licencia del modelo?**
 
-<!-- Escribir respuesta aquí -->
+La licencia determina cómo puede usarse el modelo legalmente. Por ejemplo, modelos con licencia Apache 2.0 como Qwen2.5 y Mistral permiten uso comercial y modificación libre, mientras que la Llama 3.2 Community License de Meta impone restricciones que deben leerse antes de usar el modelo en proyectos públicos o comerciales. En un contexto académico, ignorar la licencia puede representar un problema ético o legal, especialmente si el trabajo se publica o distribuye.
 
 **¿Por qué no debe usarse un LLM como única fuente académica?**
 
-<!-- Escribir respuesta aquí -->
+Los LLM generan respuestas con base en patrones estadísticos aprendidos durante el entrenamiento, no a partir de una búsqueda verificada de información. Esto significa que pueden producir afirmaciones incorrectas, desactualizadas o directamente inventadas con apariencia de veracidad, fenómeno conocido como alucinación. En un contexto universitario, esto representa un riesgo serio: una respuesta fluida no equivale a una respuesta correcta. Por ello, cualquier información generada por un LLM debe verificarse con fuentes primarias como artículos científicos, documentación oficial o libros especializados.
 
 **¿Qué ventajas y limitaciones tiene ejecutar modelos localmente?**
 
-<!-- Escribir respuesta aquí -->
+La principal ventaja de ejecutar modelos localmente con Ollama es la privacidad: los datos no salen de la computadora y no se depende de una API externa ni de conexión a internet constante. Además, permite experimentar libremente con distintos modelos sin costo por uso. Como limitación, el rendimiento depende directamente del hardware disponible: en equipos sin GPU dedicada, los modelos de 7B pueden ser lentos o difíciles de correr fluidamente. También el espacio en disco es un factor, ya que cada modelo ocupa entre 600 MB y más de 4 GB.
 
 ---
 
