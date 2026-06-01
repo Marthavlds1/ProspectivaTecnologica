@@ -33,14 +33,48 @@ Se descargaron seis modelos ejecutando los siguientes comandos uno por uno:
 
 ```
 ollama pull llama3.2:3b
+```
+**Evidencia — descarga:**
+
+<!-- Insertar captura de pantalla de las descargas -->
+![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
+
+```
 ollama pull gemma3:4b
+```
+**Evidencia — descarga:**
+
+<!-- Insertar captura de pantalla de las descargas -->
+![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
+
+```
 ollama pull qwen2.5:7b
+```
+**Evidencia — descarga:**
+
+<!-- Insertar captura de pantalla de las descargas -->
+![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
+
+```
 ollama pull mistral:7b
+```
+**Evidencia — descarga:**
+
+<!-- Insertar captura de pantalla de las descargas -->
+![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
+
+```
 ollama pull phi4-mini
+```
+**Evidencia — descarga:**
+
+<!-- Insertar captura de pantalla de las descargas -->
+![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
+
+```
 ollama pull tinyllama:1.1b-chat-v1-q8_0
 ```
-
-**Evidencia — descarga de modelos:**
+**Evidencia — descarga:**
 
 <!-- Insertar captura de pantalla de las descargas -->
 ![Descarga de modelos con ollama pull](assets/img/practica1/ollama-pull.png)
@@ -104,16 +138,6 @@ Cada modelo se ejecutó con el comando `ollama run` seguido del mismo prompt. A 
 ```
 ollama run tinyllama:1.1b-chat-v1-q8_0 "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
 ```
-```
-ollama run tinyllama:1.1b-chat-v1-q8_0 "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
-```
-```
-ollama run tinyllama:1.1b-chat-v1-q8_0 "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
-```
-```
-ollama run tinyllama:1.1b-chat-v1-q8_0 "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
-```
-
 <!-- Insertar captura de pantalla de tinyllama respondiendo -->
 ![Ejecución de tinyllama](assets/img/practica1/run-tinyllama.png)
 
@@ -124,16 +148,6 @@ ollama run tinyllama:1.1b-chat-v1-q8_0 "Dame un ejemplo de cómo un estudiante d
 ```
 ollama run phi4-mini "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
 ```
-```
-ollama run phi4-mini "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
-```
-```
-ollama run phi4-mini "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
-```
-```
-ollama run phi4-mini "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
-```
-
 <!-- Insertar captura de pantalla de phi4-mini respondiendo -->
 ![Ejecución de phi4-mini](assets/img/practica1/run-phi4.png)
 
@@ -144,16 +158,6 @@ ollama run phi4-mini "Dame un ejemplo de cómo un estudiante de ingeniería podr
 ```
 ollama run llama3.2:3b "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
 ```
-```
-ollama run llama3.2:3b "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
-```
-```
-ollama run llama3.2:3b "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
-```
-```
-ollama run llama3.2:3b "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
-```
-
 <!-- Insertar captura de pantalla de llama3.2:3b respondiendo -->
 ![Ejecución de llama3.2:3b](assets/img/practica1/run-llama.png)
 
@@ -164,16 +168,6 @@ ollama run llama3.2:3b "Dame un ejemplo de cómo un estudiante de ingeniería po
 ```
 ollama run gemma3:4b "Explica la diferencia entre inteligencia artificial, aprendizaje automático, IA generativa y LLM para estudiantes universitarios. Responde en español, con tono académico y máximo 200 palabras."
 ```
-```
-ollama run gemma3:4b "Dame un ejemplo sencillo de uso de embeddings en una búsqueda semántica dentro de un repositorio de documentos académicos."
-```
-```
-ollama run gemma3:4b "Menciona tres riesgos académicos de usar LLM sin verificar fuentes. Incluye un ejemplo breve para cada riesgo."
-```
-```
-ollama run gemma3:4b "Dame un ejemplo de cómo un estudiante de ingeniería podría usar un LLM para apoyar el desarrollo de un proyecto con ESP32, sin sustituir su aprendizaje."
-```
-
 <!-- Insertar captura de pantalla de gemma3:4b respondiendo -->
 ![Ejecución de gemma3:4b](assets/img/practica1/run-gemma.png)
 
