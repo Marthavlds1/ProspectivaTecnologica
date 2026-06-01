@@ -4,20 +4,17 @@ title: Inicio
 nav_order: 1
 ---
 
-# Plantilla de documentación con Just the Docs
+Este repositorio está diseñado para documentar las prácticas/actividades hechas a lo largo de la materia de Prospectiva Tecnologica.
 
-Este repositorio está diseñado para entender como utilizar la plantilla de repositorio que utiliza **"Just the docs"** de Jekyll y el lenguaje **"Markdown"**:
+Por:
+- Martha Valdes
+- Renata Badillo 
+- Marco Calixto
 
-1. **Crear y publicar** el sitio en GitHub Pages.
-2. Aprender la **estructura** típica de un repo de documentación.
-3. Dominar **Markdown** (texto, listas, tablas, código).
-4. Configurar la **navegación** (sidebar, secciones, orden).
-5. Agregar **imágenes, videos** y otros recursos.
-6. Ajustar **estilos** (logo, colores, footer).
 
 
 Contenido:
-- [1. Publicar en GitHub Pages](01-publicar-en-github-pages.md)
+- [Práctica 1- Instalación y comparación de modelos LLM con Ollama](practica1-llm-ollama.md)
 - [2. Estructura del repositorio](02-estructura-del-repo.md)
 - [3. Escribir en Markdown](03-markdown.md)
 - [4. Personalización visual](04-estilos.md)
