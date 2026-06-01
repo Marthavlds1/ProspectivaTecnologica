@@ -92,8 +92,7 @@ ollama ls
 **Evidencia — lista de modelos instalados:**
 
 <!-- Insertar captura de pantalla de ollama ls -->
-![Lista de modelos con ollama ls](assets/img/practica1/ollama-ls.png)
-
+![Lista de modelos con ollama ls](assets/img/p1/ollamals.png)
 ---
 
 ## 5. Consideraciones previas a la ejecución
