@@ -20,7 +20,7 @@ El proyecto de alacena inteligente requiere una plataforma que soporte visión a
 |---|---|---|---|---|---|---|---|---|
 | PC local CPU | $0 (equipo existente) | ~$0.10–0.20/hr energía | Alta ~30–60 s | Total — datos locales | Ollama + Python. Sin GPU, lento para visión + LLM simultáneos | llama3.2:3b, phi4-mini | Solo 1 usuario | Útil para prototipo y pruebas. No viable en producción continua |
 | PC local GPU | $400–1200 USD GPU | ~$0.20–0.40/hr energía | Baja <5 s | Total — datos locales | Ollama + CUDA. Visión e inferencia LLM rápidos en paralelo | gemma3:4b, qwen2.5:7b | 1–2 usuarios | Mejor opción local si hay GPU disponible en el laboratorio |
-| **API en la nube ★** | $0 | $0.001–0.015 por mensaje | Baja <3 s | Datos al proveedor | ESP32/RPi con WiFi + llamada HTTP. Muy simple de integrar | gemini-flash, claude-haiku | Ilimitada | **Opción recomendada para este proyecto.** Bajo costo, fácil integración con WhatsApp |
+| **API en la nube ★** | $0 | $0.001–0.015 por mensaje | Baja <3 s | Datos al proveedor | ESP32/RPi con WiFi + llamada HTTP. Muy simple de integrar | gemini-flash, claude-haiku | Ilimitada | **Opción para este proyecto.** Bajo costo, fácil integración con WhatsApp |
 | Servidor GPU nube | $0 | $0.50–2.00/hr | Baja <3 s | Datos en nube | Docker + Ollama en VM. Requiere configuración de servidor y seguridad | mistral:7b, llava:7b | Alta | Útil para modelo propio. Costo elevado para proyecto académico |
 | Jetson Orin Nano | $249–499 USD | ~$0.05/hr energía | Media 5–15 s | Total — datos locales | Embedded Linux + Ollama. Puede correr visión + LLM en el mismo dispositivo | phi4-mini, tinyllama | 1 alacena | Ideal a largo plazo para producto físico autónomo. Fuera de presupuesto académico |
 | Microcontrolador + API | $5–30 (ESP32/RPi) | $0.001–0.015 por mensaje | Baja <4 s | Datos al proveedor | ESP32 captura imagen → API → respuesta → WhatsApp | gemini-flash, claude-haiku | 1 alacena | Arquitectura más realista para el proyecto. ESP32-S3 o RPi + cámara + API |
@@ -37,6 +37,7 @@ La combinación de un microcontrolador de bajo costo con una API LLM en la nube 
 ### Configuración del experimento
 
 Se evaluaron tres modelos ejecutando 100 ciclos cada uno con el mismo prompt y los mismos parámetros base.
+[Archivo Benchmark modelos:](assets/files/p2/benchmark_modelos.py)
 
 **Prompt utilizado:**
 ```
@@ -56,6 +57,7 @@ de alto nivel para un robot móvil universitario.
 | num_ctx | 4096 |
 
 ### Resultados
+[Salida .csv:](assets/files/p2/benchmark_modelos.csv)
 
 | Modelo | Tiempo prom (s) | Std (s) | Mín (s) | Máx (s) | Tokens entrada | Tokens salida | Tokens/s prom | Calidad prom |
 |---|---|---|---|---|---|---|---|---|
@@ -67,8 +69,7 @@ de alto nivel para un robot móvil universitario.
 
 **Evidencia — benchmark de modelos:**
 
-<!-- Insertar imagen benchmark_graficas.png -->
-![Benchmark comparativo de modelos](assets/img/practica2/benchmark_graficas.png)
+![Benchmark comparativo de modelos](assets/img/p2/benchmark_graficas.png)
 
 ### Justificación por modelo
 
@@ -83,7 +84,7 @@ de alto nivel para un robot móvil universitario.
 ## Parte C — Variación de parámetros
 
 ### Configuración
-
+[Archivo Benchmark parametros](assets/files/p2/benchmark_parametros.py)
 Se utilizó `llama3.2:3b` como modelo base, con el siguiente prompt relacionado directamente con el proyecto:
 
 **Prompt:**
@@ -96,7 +97,7 @@ ingredientes en máximo 100 palabras.
 Se variaron tres parámetros con tres configuraciones cada uno, ejecutando 5 ciclos por configuración.
 
 ### Parámetros evaluados
-
+[Salida .csv:](assets/files/p2/benchmark_parametros.csv)
 | Parámetro | Configuraciones | Efecto esperado |
 |---|---|---|
 | temperature | 0.0, 0.7, 1.1 | Controla aleatoriedad. 0.0 = determinista, 1.1 = creativo |
@@ -122,7 +123,7 @@ Se variaron tres parámetros con tres configuraciones cada uno, ejecutando 5 cic
 **Evidencia — variación de parámetros:**
 
 <!-- Insertar imagen parametros_graficas.png -->
-![Variación de parámetros](assets/img/practica2/parametros_graficas.png)
+![Variación de parámetros](assets/img/p2/parametros_graficas.png)
 
 ### Preguntas guía
 
