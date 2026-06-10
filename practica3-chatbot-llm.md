@@ -81,12 +81,12 @@ POST /services/whatsapp/stop  ← Detiene el bot
 **Evidencia — backend corriendo:**
 
 <!-- Insertar captura de pantalla del backend con Application startup complete -->
-![Backend corriendo](assets/img/practica3/backend-running.png)
+![Backend corriendo](/workspaces/ProspectivaTecnologica/assets/img/p3/frontend admin.jpeg)
 
 **Evidencia — prueba del endpoint /chat/admin:**
 
 <!-- Insertar captura de pantalla de la prueba en /docs o con curl -->
-![Prueba endpoint chat/admin](assets/img/practica3/endpoint-test.png)
+![Prueba endpoint chat/admin](/workspaces/ProspectivaTecnologica/assets/img/p3/end point.jpeg)
 
 ---
 
@@ -117,17 +117,17 @@ El frontend es un archivo HTML/CSS/JS de una sola página dividido en tres colum
 **Evidencia — frontend funcionando:**
 
 <!-- Insertar captura de pantalla del panel de administración -->
-![Panel de administración](assets/img/practica3/admin-panel.png)
+![Panel de administración](/workspaces/ProspectivaTecnologica/assets/img/p3/interfaz .jpeg)
 
 **Evidencia — métricas visibles:**
 
 <!-- Insertar captura de pantalla mostrando las métricas después de una respuesta -->
-![Métricas visibles](assets/img/practica3/metricas.png)
+![Métricas visibles](/workspaces/ProspectivaTecnologica/assets/img/p3/metricas interfaz.jpeg)
 
 **Evidencia — historial de WhatsApp:**
 
 <!-- Insertar captura de pantalla del panel derecho con mensajes de WhatsApp -->
-![Historial de WhatsApp](assets/img/practica3/whatsapp-historial.png)
+![Historial de WhatsApp](/workspaces/ProspectivaTecnologica/assets/img/p3/interfaz .jpeg)
 
 ---
 
@@ -154,11 +154,6 @@ Se probaron los siguientes prompts con el modelo seleccionado:
 | Técnico | "Dame un ejemplo de código Arduino para leer un sensor HC-SR04." | Código funcional con comentarios |
 | Aplicación al proyecto | "¿Cómo podría un LLM ayudar a una alacena inteligente a detectar ingredientes faltantes?" | Respuesta contextualizada y precisa |
 | Robótica | "Explica cómo un robot móvil puede usar visión artificial para detectar objetos." | Respuesta ordenada y académica |
-
-**Evidencia — prueba en el chat:**
-
-<!-- Insertar captura de pantalla de una conversación en el chat del panel -->
-![Prueba en el chat](assets/img/practica3/chat-test.png)
 
 ---
 
