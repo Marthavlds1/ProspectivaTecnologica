@@ -150,12 +150,12 @@ El endpoint `/chat/admin` construye el payload para Ollama con el system prompt 
 **Evidencia — endpoint /profiles:**
 
 <!-- Insertar captura de http://localhost:8000/profiles -->
-![Endpoint profiles](assets/img/practica4/profiles-endpoint.png)
+![Endpoint profiles](/workspaces/ProspectivaTecnologica/assets/img/p4/activarFrontend.jpeg)
 
 **Evidencia — backend corriendo:**
 
 <!-- Insertar captura de la terminal con Application startup complete -->
-![Backend corriendo](assets/img/practica4/backend.png)
+![Backend corriendo](/workspaces/ProspectivaTecnologica/assets/img/p4/activarBackend.jpeg)
 
 ### 4.2 Frontend — 3 archivos separados
 
@@ -176,17 +176,17 @@ El flujo de `app.js`:
 **Evidencia — frontend con perfil Administrador:**
 
 <!-- Insertar captura del frontend con el perfil administrador seleccionado -->
-![Frontend perfil administrador](assets/img/practica4/frontend-admin.png)
+![Frontend perfil administrador](/workspaces/ProspectivaTecnologica/assets/img/p4/Agente_admin.jpeg)
 
 **Evidencia — frontend con perfil Nutriólogo:**
 
 <!-- Insertar captura del frontend con el perfil nutriólogo seleccionado -->
-![Frontend perfil nutriólogo](assets/img/practica4/frontend-nutriologo.png)
+![Frontend perfil nutriólogo](/workspaces/ProspectivaTecnologica/assets/img/p4/agente_nutriologo.jpeg)
 
 **Evidencia — frontend con perfil Comprador:**
 
 <!-- Insertar captura del frontend con el perfil comprador seleccionado -->
-![Frontend perfil comprador](assets/img/practica4/frontend-comprador.png)
+![Frontend perfil comprador](/workspaces/ProspectivaTecnologica/assets/img/p4/agente_compras.jpeg)
 
 ---
 
@@ -202,22 +202,18 @@ El flujo de `app.js`:
 **Evidencia — prueba con perfil Genérico:**
 
 <!-- Insertar captura de una conversación con el perfil genérico -->
-![Prueba genérico](assets/img/practica4/prueba-generico.png)
+![Prueba genérico](/workspaces/ProspectivaTecnologica/assets/img/p4/IA_GENERICA.jpeg)
 
 **Evidencia — prueba con perfil Nutriólogo:**
 
 <!-- Insertar captura de una conversación con el perfil nutriólogo -->
-![Prueba nutriólogo](assets/img/practica4/prueba-nutriologo.png)
+![Prueba nutriólogo](/workspaces/ProspectivaTecnologica/assets/img/p4/agente_nutriologo.jpeg)
 
 **Evidencia — prueba con perfil Comprador:**
 
 <!-- Insertar captura de una conversación con el perfil comprador -->
-![Prueba comprador](assets/img/practica4/prueba-comprador.png)
+![Prueba comprador](/workspaces/ProspectivaTecnologica/assets/img/p4/agente_compras.jpeg)
 
-**Evidencia — métricas visibles:**
-
-<!-- Insertar captura del panel de métricas con datos reales -->
-![Métricas](assets/img/practica4/metricas.png)
 
 ---
 
