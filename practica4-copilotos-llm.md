@@ -194,18 +194,10 @@ El flujo de `app.js`:
 
 | Perfil | Prompt | ¿Cumple rol? | ¿Cumple formato? | ¿Alucina? | Tokens salida | Latencia | Observación |
 |---|---|---|---|---|---|---|---|
-| Genérico | "¿Qué puedo cocinar con lo que tengo?" | | | | | | |
-| Genérico | "¿Qué me falta comprar esta semana?" | | | | | | |
-| Genérico | "¿Es saludable lo que tengo en la alacena?" | | | | | | |
-| Administrador | "Agrega 3 tomates y 2 aguacates al inventario" | | | | | | |
-| Administrador | "¿Qué productos están por agotarse?" | | | | | | |
-| Administrador | "Muéstrame el inventario organizado por categorías" | | | | | | |
-| Nutriólogo | "¿Qué receta balanceada puedo hacer con pollo, brócoli y arroz?" | | | | | | |
-| Nutriólogo | "¿Mi inventario tiene buena variedad nutricional?" | | | | | | |
-| Nutriólogo | "Dame una cena alta en proteína con lo que tengo" | | | | | | |
-| Comprador | "Hazme la lista del super para esta semana" | | | | | | |
-| Comprador | "¿Qué me falta para hacer desayunos completos?" | | | | | | |
-| Comprador | "Lista económica para 4 personas por 7 días" | | | | | | |
+| Genérico | "¿Qué puedo cocinar con lo que tengo?" | Parcial — pidió el inventario primero | No aplica | No | 63 | 27.90 s | Respondió pidiendo más info, sin orientación adicional |
+| Administrador | "Muéstrame el inventario organizado por categorías" | Sí — solicitó categorías y productos | Lista organizada | No | 56 | 18.65 s | Comportamiento correcto; pide datos antes de asumir |
+| Nutriólogo | "Dame una receta balanceada con lo que tengo" | Sí — sugirió ingredientes básicos | Sugerencias + valor nutricional | Leve | 82 | 39.17 s | Sugirió arroz, frijoles, leche sin conocer el inventario real |
+| Comprador | "Hazme la lista del super para esta semana" | Sí — generó lista por categorías | Lista organizada por categorías | Leve | 180 | 56.53 s | Generó productos sin conocer inventario real; lista genérica pero útil |
 
 **Evidencia — prueba con perfil Genérico:**
 
@@ -246,31 +238,31 @@ El flujo de `app.js`:
 
 **¿Qué perfil fue más útil para el proyecto de alacena inteligente?**
 
-<!-- Escribir respuesta aquí -->
+El perfil de **Asistente de compras** resultó el más útil para el proyecto. Al preguntar "Hazme la lista del super para esta semana", el copiloto generó una lista organizada por categorías (frutas y verduras, proteínas, lácteos, abarrotes) sin que se le proporcionara el inventario completo. Esto demuestra que un system prompt bien definido puede guiar al modelo hacia respuestas estructuradas y accionables, directamente aplicables al flujo de la alacena inteligente.
 
 **¿Qué diferencias observaste entre el asistente genérico y los perfiles especializados?**
 
-<!-- Escribir respuesta aquí -->
+El asistente genérico respondió la pregunta "¿Qué puedo cocinar con lo que tengo?" pidiendo primero que el usuario compartiera su inventario, sin ofrecer ninguna orientación adicional. Los perfiles especializados, en cambio, mostraron comportamientos más definidos: el Administrador solicitó las categorías del inventario de forma estructurada; el Nutriólogo sugirió ingredientes básicos como referencia mientras esperaba más información; y el Comprador generó directamente una lista genérica organizada por categorías para una familia de 4 personas. La diferencia principal no fue la calidad del modelo sino la dirección que le da el system prompt.
 
 **¿Qué instrucciones del system prompt redujeron la ambigüedad en las respuestas?**
 
-<!-- Escribir respuesta aquí -->
+Las instrucciones más efectivas fueron las que definían el formato de salida de forma explícita. En el perfil Comprador, la instrucción "Organiza la lista de compras por categorías: frutas y verduras, proteínas, lácteos, abarrotes, otros" produjo directamente una respuesta estructurada con encabezados y listas. También fue efectiva la instrucción "Estima cantidades para una familia de 4 personas por defecto", que evitó que el modelo pidiera ese dato antes de responder.
 
 **¿Qué instrucciones hicieron la respuesta demasiado rígida o limitada?**
 
-<!-- Escribir respuesta aquí -->
+En el perfil Administrador, la instrucción "No inventes cantidades ni productos; pregunta si falta información" hizo que el modelo solicitara el inventario antes de dar cualquier respuesta, lo cual es correcto funcionalmente pero puede percibirse como poco fluido para el usuario. De forma similar, el Nutriólogo pidió la lista de ingredientes antes de sugerir recetas, lo que alarga el intercambio. En un sistema real, esto se resolvería conectando el copiloto directamente con el inventario de la BD en lugar de depender del usuario para proporcionarlo.
 
 **¿El modelo inventó información en algún caso? ¿En cuál?**
 
-<!-- Escribir respuesta aquí -->
+En el perfil Comprador, el modelo generó una lista de compras con productos específicos (manzanas, naranjas, papas, zanahorias, pollo, carne de res, cerdo, lácteos) sin conocer el inventario real. Aunque la lista tiene sentido para una familia promedio, los productos y cantidades son inferidos, no basados en datos reales de la alacena. Esto es una alucinación leve — el modelo no inventó datos dañinos, pero presentó suposiciones como si fueran recomendaciones personalizadas.
 
 **¿Qué guardrails agregarías para mejorar la confiabilidad del copiloto?**
 
-<!-- Escribir respuesta aquí -->
+Se agregarían tres guardrails principales: primero, validación en el backend que rechace mensajes que intenten modificar el system prompt mediante inyección de prompt (por ejemplo, "ignora tus instrucciones anteriores"). Segundo, un límite de longitud en el system_prompt editable del frontend para evitar instrucciones excesivamente largas que confundan al modelo. Tercero, conectar automáticamente el inventario real desde `/inventory/db` al inicio de cada conversación, para que el copiloto no dependa del usuario para conocer el estado de la alacena.
 
 **¿Cómo conectarías este copiloto con los documentos de inventario en un sistema RAG?**
 
-<!-- Escribir respuesta aquí -->
+En un sistema RAG, el backend consultaría `/inventory/db` antes de llamar a Ollama y agregaría el inventario actual como contexto dentro del system prompt. Por ejemplo: "Inventario actual: pollo (2), leche (1), huevos (6), pasta (3)...". Esto eliminaría la necesidad de que el usuario escriba manualmente los ingredientes en cada conversación. En una versión más avanzada, se podría incluir también el historial de compras, las preferencias dietéticas del usuario y recetas anteriores como documentos de contexto, convirtiendo el copiloto en un asistente verdaderamente personalizado.
 
 ---
 
