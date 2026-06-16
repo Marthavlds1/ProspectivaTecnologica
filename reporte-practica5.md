@@ -109,8 +109,7 @@ Se usó el mismo prompt en los tres proveedores para comparar en igualdad de con
 
 ### Prueba 1 — Ollama local · `llama3.2:3b`
 
-![Captura Ollama](./capturas/captura-ollama.png)
-
+![Captura Ollama](_includes/practica5/capturas/captura-ollama.png)
 > Tiempo backend: **44.782 s** · Tokens entrada: **143** · Tokens salida: **300** · Tokens/s: **9.75**  
 > La respuesta quedó cortada al llegar al límite de 300 tokens antes de completar el punto 4.
 
@@ -118,8 +117,7 @@ Se usó el mismo prompt en los tres proveedores para comparar en igualdad de con
 
 ### Prueba 2 — Google Gemini API · `gemini-2.5-flash-lite`
 
-![Captura Gemini](./capturas/captura-gemini.png)
-
+![Captura Gemini](_includes/practica5/capturas/captura-gemini.png)
 > Tiempo backend: **2.484 s** · Tokens entrada: **106** · Tokens salida: **300** · Tokens/s: **120.77**  
 > Respuesta más rápida de las tres pruebas, aunque también quedó cortada en el punto 3.
 
@@ -127,8 +125,7 @@ Se usó el mismo prompt en los tres proveedores para comparar en igualdad de con
 
 ### Prueba 3 — Groq API · `llama-3.3-70b-versatile`
 
-![Captura Groq](./capturas/captura-groq.png)
-
+![Captura Groq](_includes/practica5/capturas/captura-groq.png)
 > Tiempo backend: **8.633 s** · Tokens entrada: **153** · Tokens salida: **294** · Tokens/s: **34.06**  
 > Única respuesta que completó los cuatro puntos solicitados sin ser cortada.
 
