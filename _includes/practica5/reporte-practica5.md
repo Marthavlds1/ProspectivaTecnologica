@@ -1,9 +1,7 @@
-# Práctica 5: Chatbot híbrido con APIs externas de LLM
-
-**Materia:** Prospectiva de IA  
-**Institución:** Universidad Iberoamericana Ciudad de México  
-**Fecha:** Junio 2026  
-
+---
+layout: default
+title: Práctica 5 — Chatbot híbrido con APIs externas de LLM
+nav_order: 7
 ---
 
 ## 1. Objetivo
