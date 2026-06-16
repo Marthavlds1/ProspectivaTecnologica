@@ -144,7 +144,7 @@ Se usó el mismo prompt en los tres proveedores para comparar en igualdad de con
 | Tokens totales | 443 | 406 | 447 |
 | Tiempo backend | 44.782 s | 2.484 s | 8.633 s |
 | Tokens/s aprox. | 9.75 | 120.77 | 34.06 |
-| Respuesta completa | ❌ Cortada | ❌ Cortada | ✅ Completa |
+| Respuesta completa |  Cortada |  Cortada |  Completa |
 | Requiere internet | No | Sí | Sí |
 | Requiere API key | No | Sí | Sí |
 | Costo | Hardware local | Tier gratuito / pago | Free plan / pago |
