@@ -3,6 +3,7 @@ layout: default
 title: Práctica 6 — Práctica 6: Evaluación arquitectura LLM + MQTT
 nav_order: 8
 ---
+# Práctica 6 — Práctica 6: Evaluación arquitectura LLM + MQTT
 
 ## 1. Objetivo
 
@@ -120,40 +121,35 @@ ApiAlacena/backend/
 
 ### 6.1 Matriz de confusión
 
-![Matriz de confusión](./graficas/confusion_matrix.png)
-
+![Matriz de confusión](_includes/practica6/graficas/confusion_matrix.png)
 La matriz revela el patrón de error más importante del experimento: el modelo clasificó correctamente el 100% de los prompts `none` pero colapsó casi todas las predicciones de `off` hacia `none`. De 38 casos `off`, solo 5 se clasificaron correctamente (recall = 0.13). Los prompts `on` tuvieron un desempeño intermedio: 14 correctos de 31 (recall = 0.45).
 
 ---
 
 ### 6.2 Latencia por iteración
 
-![Latencia por iteración](./graficas/latency_by_trial.png)
-
+![Latencia por iteración](_includes/practica6/graficas/latency_by_trial.png)
 La iteración 1 tuvo un pico de ~40,000 ms causado por la carga inicial del modelo en memoria (cold start de Ollama). A partir de la iteración 2, la latencia se estabilizó entre 7,000 y 17,000 ms. La brecha entre la línea azul (latencia total cliente) y la naranja (latencia Ollama) representa el overhead del backend y la publicación MQTT, que es mínimo.
 
 ---
 
 ### 6.3 Distribución de latencia
 
-![Distribución de latencia](./graficas/latency_boxplot.png)
-
+![Distribución de latencia](_includes/practica6/graficas/latency_boxplot.png)
 El boxplot confirma que la mayor parte del tiempo de respuesta lo consume Ollama (~8,500 ms mediana). La latencia MQTT es prácticamente instantánea (< 200 ms en todos los casos), lo que valida que el broker de la Ibero responde con rapidez. Los outliers en Total cliente y Ollama corresponden al cold start de la primera iteración.
 
 ---
 
 ### 6.4 Tokens totales vs latencia
 
-![Tokens vs latencia](./graficas/tokens_vs_latency.png)
-
+![Tokens vs latencia](_includes/practica6/graficas/tokens_vs_latency.png)
 Existe una correlación positiva entre el número de tokens generados y la latencia: prompts que generaron más tokens de salida (~343 tokens) tardaron más (~15,000 ms). Los prompts con menos tokens (~305) tuvieron latencias más bajas (~9,000–10,000 ms). Esto es consistente con el comportamiento esperado de un modelo autoregresivo corriendo en CPU.
 
 ---
 
 ### 6.5 Tasas de éxito del experimento
 
-![Tasas de éxito](./graficas/success_rates.png)
-
+![Tasas de éxito](_includes/practica6/graficas/success_rates.png)
 La arquitectura fue robusta a nivel de infraestructura: JSON válido, MQTT publicado y éxito de arquitectura alcanzaron 1.00 en las 100 pruebas. El único indicador bajo fue la clasificación correcta (0.50), que corresponde al desempeño semántico del LLM, no a fallos de la pipeline.
 
 ---
