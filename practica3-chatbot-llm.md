@@ -81,12 +81,12 @@ POST /services/whatsapp/stop  ← Detiene el bot
 **Evidencia — backend corriendo:**
 
 <!-- Insertar captura de pantalla del backend con Application startup complete -->
-![Backend corriendo](/workspaces/ProspectivaTecnologica/assets/img/p3/frontend admin.jpeg)
+![Backend corriendo](assets/img/p3/frontend admin.jpeg)
 
 **Evidencia — prueba del endpoint /chat/admin:**
 
 <!-- Insertar captura de pantalla de la prueba en /docs o con curl -->
-![Prueba endpoint chat/admin](/workspaces/ProspectivaTecnologica/assets/img/p3/end point.jpeg)
+![Prueba endpoint chat/admin](assets/img/p3/end point.jpeg)
 
 ---
 
@@ -117,17 +117,17 @@ El frontend es un archivo HTML/CSS/JS de una sola página dividido en tres colum
 **Evidencia — frontend funcionando:**
 
 <!-- Insertar captura de pantalla del panel de administración -->
-![Panel de administración](/workspaces/ProspectivaTecnologica/assets/img/p3/interfaz .jpeg)
+![Panel de administración](assets/img/p3/interfaz .jpeg)
 
 **Evidencia — métricas visibles:**
 
 <!-- Insertar captura de pantalla mostrando las métricas después de una respuesta -->
-![Métricas visibles](/workspaces/ProspectivaTecnologica/assets/img/p3/metricas interfaz.jpeg)
+![Métricas visibles](assets/img/p3/metricas interfaz.jpeg)
 
 **Evidencia — historial de WhatsApp:**
 
 <!-- Insertar captura de pantalla del panel derecho con mensajes de WhatsApp -->
-![Historial de WhatsApp](/workspaces/ProspectivaTecnologica/assets/img/p3/interfaz .jpeg)
+![Historial de WhatsApp](assets/img/p3/interfaz .jpeg)
 
 ---
 
