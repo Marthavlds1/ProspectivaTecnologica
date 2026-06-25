@@ -1,0 +1,6 @@
+paho-mqtt
+pandas
+numpy
+openpyxl
+matplotlib
+scikit-learn
