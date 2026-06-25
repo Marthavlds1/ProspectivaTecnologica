@@ -1,9 +1,7 @@
-# Práctica 6: Evaluación de arquitectura LLM + MQTT para control de LED
-
-**Materia:** Prospectiva de IA  
-**Institución:** Universidad Iberoamericana Ciudad de México  
-**Fecha:** Junio 2026  
-
+---
+layout: default
+title: Práctica 6 — Práctica 6: Evaluación arquitectura LLM + MQTT
+nav_order: 8
 ---
 
 ## 1. Objetivo
