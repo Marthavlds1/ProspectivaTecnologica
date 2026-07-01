@@ -68,15 +68,14 @@ Este proyecto propone una alternativa donde la alacena se actualiza sola mediant
 
 Objetivos - Desarrollar un asistente nutrimental inteligente que permita:
 
-**Gestionar inventario de alimentos.
-**Generar recetas personalizadas.
-**Crear listas de compras.
-**Generar planes alimenticios.
-**Interactuar mediante WhatsApp.
-**Utilizar modelos de lenguaje (LLM) ejecutados localmente.
-**Reconocer productos automáticamente mediante visión computacional (VLM)
-**Automatizar la gestión de una alacena doméstica.
-
+- Gestionar inventario de alimentos.
+- Generar recetas personalizadas.
+- Crear listas de compras.
+- Generar planes alimenticios.
+- Interactuar mediante WhatsApp.
+- Utilizar modelos de lenguaje (LLM) ejecutados localmente.
+- Reconocer productos automáticamente mediante visión computacional (VLM)
+- Automatizar la gestión de una alacena doméstica.
 ---
 
 ## 3. Arquitectura del sistema
