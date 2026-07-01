@@ -16,7 +16,7 @@ Universidad Iberoamericana Ciudad de Mexico — 2026
 
 ## Indice
 
-1. [Resumen del proyecto](#1-resumen-del-proyecto)
+1. [Descripcion general](#1-descripcion-general)
 2. [Problema que resuelve](#2-problema-que-resuelve)
 3. [Arquitectura del sistema](#3-arquitectura-del-sistema)
 4. [Etapa 1 — Hardware y percepcion visual](#4-etapa-1--hardware-y-percepcion-visual)
@@ -68,14 +68,14 @@ Este proyecto propone una alternativa donde la alacena se actualiza sola mediant
 
 Objetivos - Desarrollar un asistente nutrimental inteligente que permita:
 
-Gestionar inventario de alimentos.
-Generar recetas personalizadas.
-Crear listas de compras.
-Generar planes alimenticios.
-Interactuar mediante WhatsApp.
-Utilizar modelos de lenguaje (LLM) ejecutados localmente.
-Reconocer productos automáticamente mediante visión computacional (VLM)
-Automatizar la gestión de una alacena doméstica.
+**Gestionar inventario de alimentos.
+**Generar recetas personalizadas.
+**Crear listas de compras.
+**Generar planes alimenticios.
+**Interactuar mediante WhatsApp.
+**Utilizar modelos de lenguaje (LLM) ejecutados localmente.
+**Reconocer productos automáticamente mediante visión computacional (VLM)
+**Automatizar la gestión de una alacena doméstica.
 
 ---
 
