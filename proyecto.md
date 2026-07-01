@@ -76,6 +76,7 @@ Objetivos - Desarrollar un asistente nutrimental inteligente que permita:
 - Utilizar modelos de lenguaje (LLM) ejecutados localmente.
 - Reconocer productos automáticamente mediante visión computacional (VLM)
 - Automatizar la gestión de una alacena doméstica.
+
 ---
 
 ## 3. Arquitectura del sistema
@@ -175,15 +176,14 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 **Captura 1 — Modulo ESP32-CAM fisico**
 
-<!-- ![ESP32-CAM modulo fisico](./assets/esp32cam_hardware.jpg) -->
+![ESP32-CAM modulo fisico](assets/img/pf/esp32.png)
 
 > Fotografia del modulo ESP32-CAM con sensor OV2640 utilizado en el proyecto. El modulo se coloco apuntando hacia el interior de la alacena y conectado a la red Wi-Fi local para comunicarse con el backend mediante HTTP.
 
 ---
 
 **Captura 2 — Alacena con los productos del catalogo**
-
-<!-- ![Alacena con productos](./assets/alacena_productos.jpg) -->
+![Alacena con productos](assets/img/pf/alacena.png) 
 
 > Vista de la alacena fisica utilizada para las pruebas, con los 26 productos del catalogo dispuestos de manera visible. Esta es la escena que la ESP32-CAM captura para que Gemini Vision realice la deteccion.
 
@@ -191,9 +191,9 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 **Captura 3 — Imagen capturada por la ESP32-CAM**
 
-<!-- ![Imagen latest.jpg capturada por ESP32-CAM](./assets/latest_captura.jpg) -->
+![Imagen latest.jpg capturada por ESP32-CAM](assets/img/pf/lastest.png)
 
-> Imagen real tomada por la ESP32-CAM y guardada como `latest.jpg` en el servidor. Se puede observar la diferencia de resolucion respecto a una camara convencional, lo que justifica el uso de descripciones visuales especificas en el prompt de Gemini.
+> Imagen real tomada por la ESP32-CAM y guardada como `latest.png` en el servidor. Se puede observar la diferencia de resolucion respecto a una camara convencional, lo que justifica el uso de descripciones visuales especificas en el prompt de Gemini.
 
 ---
 
