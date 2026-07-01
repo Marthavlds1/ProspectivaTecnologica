@@ -1,207 +1,204 @@
 ---
 layout: default
-title: Proyecto final
-nav_order: 9
+title: Portafolio Proyecto final
+nav_order: 10
 ---
 
-# 🧠 Alacena Inteligente
+# Alacena Inteligente
 
 **Sistema ciber-físico para la gestión autónoma de inventario alimentario mediante visión por computadora y modelos de lenguaje de gran escala**
 
 > Proyecto final · Prospectiva de IA · Ingeniería Mecatrónica · Universidad Iberoamericana Ciudad de México · 2026
 
-**Equipo:** Martha Valdés · Marco [Apellido] · Renata [Apellido]
+**Equipo:** Martha Valdés · Marco Calixto · Renata Badillo
 
 ---
 
 ## Tabla de contenidos
 
-1. [Descripción general](#descripción-general)
-2. [Arquitectura del sistema](#arquitectura-del-sistema)
-3. [Pipeline de visión por computadora](#pipeline-de-visión-por-computadora)
-4. [Copilotos conversacionales](#copilotos-conversacionales)
-5. [API REST](#api-rest)
-6. [Base de datos](#base-de-datos)
-7. [Métricas y evaluación](#métricas-y-evaluación)
-8. [Pruebas realizadas](#pruebas-realizadas)
-9. [Stack tecnológico](#stack-tecnológico)
-10. [Instalación y uso](#instalación-y-uso)
-11. [Estructura del proyecto](#estructura-del-proyecto)
+1. [Descripcion general](#descripcion-general)
+2. [Arquitectura multi-agente](#arquitectura-multi-agente)
+3. [Pipeline de vision por computadora](#pipeline-de-vision-por-computadora)
+4. [Orquestador LLM](#orquestador-llm)
+5. [Agentes especializados](#agentes-especializados)
+6. [Integracion con WhatsApp](#integracion-con-whatsapp)
+7. [Dashboard de observabilidad](#dashboard-de-observabilidad)
+8. [API REST](#api-rest)
+9. [Base de datos](#base-de-datos)
+10. [Metodologia experimental](#metodologia-experimental)
+11. [Resultados](#resultados)
+12. [Stack tecnologico](#stack-tecnologico)
+13. [Instalacion y uso](#instalacion-y-uso)
+14. [Descargas](#descargas)
+15. [Estructura del proyecto](#estructura-del-proyecto)
 
 ---
 
-## Descripción general
+## Descripcion general
 
-**Alacena Inteligente** es un sistema que detecta automáticamente productos alimenticios en una despensa doméstica mediante una cámara ESP32-CAM, los registra en una base de datos SQLite y permite consultar el inventario, generar recetas, listas de compras y planes nutricionales mediante copilotos conversacionales especializados.
+Alacena Inteligente es un sistema de gestion inteligente de inventario alimentario que integra vision por computadora, modelos de lenguaje de gran escala y agentes de software especializados en una arquitectura multi-agente unificada.
 
-El sistema opera de forma **híbrida**: usa Gemini 2.5 Flash (API de Google) para visión y un modelo local (`llama3.2:3b` vía Ollama) para el chat, garantizando que los datos personales del usuario no salgan de la red local.
+A diferencia de los asistentes conversacionales convencionales, donde un unico modelo de lenguaje es responsable de interpretar solicitudes y generar respuestas, la arquitectura propuesta distribuye las responsabilidades entre agentes especializados coordinados por una capa de orquestacion. Un modelo de lenguaje visual (VLM) detecta productos alimenticios mediante imagenes capturadas por una camara ESP32-CAM. Un LLM opera exclusivamente como agente orquestador que interpreta solicitudes en lenguaje natural, extrae entidades estructuradas y delega la ejecucion a agentes de dominio especializados.
+
+La arquitectura incorpora ademas una capa de observabilidad que registra latencia, consumo de tokens, velocidad de inferencia, precision de clasificacion de intenciones, validacion de salidas estructuradas y trazas de ejecucion a traves de un dashboard administrativo.
 
 ### Funcionalidades principales
 
-| Funcionalidad | Descripción |
+| Funcionalidad | Descripcion |
 |---|---|
-| 📷 Detección visual | ESP32-CAM captura la alacena y Gemini identifica productos |
-| 📦 Inventario automático | Los productos detectados se agregan/actualizan en SQLite |
-| 💬 Chat con copilotos | 4 copilotos especializados vía LLM local |
-| 🍳 Generación de recetas | Recetas basadas en el inventario disponible |
-| 🛒 Lista de compras | Sugerencias de qué comprar según el inventario |
-| 🥗 Plan nutricional | Planes semanales personalizados por perfil del usuario |
-| ⏰ Recordatorios | Alertas de productos próximos a caducar |
+| Deteccion visual | ESP32-CAM captura la alacena y Gemini Vision identifica productos |
+| Inventario automatico | Los productos detectados se agregan o actualizan en SQLite |
+| Orquestacion LLM | llama3.2:3b interpreta intenciones y genera JSON estructurado |
+| Agentes especializados | Inventario, recetas, nutricion, compras y plan semanal |
+| WhatsApp | Interfaz conversacional via whatsapp-web.js |
+| Observabilidad | Dashboard con metricas en tiempo real de toda la arquitectura |
 
 ---
 
-## Arquitectura del sistema
+## Arquitectura multi-agente
+
+La arquitectura sigue un diseno en capas que separa percepcion, razonamiento, ejecucion y monitoreo en componentes de software independientes.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      CAPA DE PERCEPCIÓN                     │
-│                                                             │
-│   ESP32-CAM (OV2640)                                        │
-│   Captura imagen → POST /vision/upload                      │
-└─────────────────────────┬───────────────────────────────────┘
-                          │ HTTP (bytes)
-                          ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    CAPA DE PROCESAMIENTO                    │
-│                    FastAPI + Python                         │
-│                                                             │
-│  ┌─────────────────┐    ┌──────────────────────────────┐   │
-│  │  vision_llm.py  │    │   ChatRouterService           │   │
-│  │                 │    │   OrchestratorService         │   │
-│  │  Gemini 2.5     │    │   llama3.2:3b (Ollama local)  │   │
-│  │  Flash Vision   │    │                              │   │
-│  └────────┬────────┘    └─────────────┬────────────────┘   │
-│           │                           │                     │
-│           ▼                           ▼                     │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │              SQLite (inventory.db)                   │   │
-│  │  inventory · users · llm_metrics                     │   │
-│  │  chat_history · intent_tests                         │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────┬───────────────────────────────────┘
-                          │ HTTP/JSON
-                          ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   CAPA DE PRESENTACIÓN                      │
-│                                                             │
-│   Frontend web (HTML/CSS/JS)                                │
-│   Panel inventario · Chat · Visión · Métricas               │
-└─────────────────────────────────────────────────────────────┘
++----------------------------------------------------------+
+|                    CAPA DE PERCEPCION                    |
+|                                                          |
+|   ESP32-CAM (OV2640)                                     |
+|   Captura imagen --> POST /vision/upload                 |
++------------------------+---------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|                CAPA DE ORQUESTACION                      |
+|                                                          |
+|   LLM Orchestrator (llama3.2:3b via Ollama)              |
+|   Comprension de lenguaje natural                        |
+|   Clasificacion de intenciones                           |
+|   Extraccion de entidades --> JSON estructurado          |
++------------------------+---------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|            CAPA DE EJECUCION (AGENTES)                   |
+|                                                          |
+|   Inventory Agent  |  Recipe Agent  |  Nutrition Agent   |
+|   Shopping Agent   |  Meal Planner                       |
++------------------------+---------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|                 CAPA DE PERSISTENCIA                     |
+|                                                          |
+|   SQLite: inventory | users | llm_metrics                |
+|           chat_history | intent_tests                    |
++----------------------------------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|                CAPA DE OBSERVABILIDAD                    |
+|                                                          |
+|   Dashboard web (HTML/CSS/JS)                            |
+|   Metricas en tiempo real via REST APIs                  |
++----------------------------------------------------------+
 ```
+
+La principal decision de diseno es que el LLM nunca ejecuta logica de negocio directamente. En cambio, produce representaciones JSON estructuradas que son validadas por el backend antes de delegar la ejecucion a agentes especializados. Esta separacion mejora la modularidad, escalabilidad, mantenibilidad y confiabilidad del sistema.
 
 ---
 
-## Pipeline de visión por computadora
+## Pipeline de vision por computadora
 
-### Motivación del enfoque
+### Motivacion del enfoque
 
-La cámara seleccionada (ESP32-CAM con sensor OV2640) tiene una resolución máxima de 2 MP con limitaciones en condiciones de baja iluminación y enfoque. Para compensar esta restricción, se implementó un **entrenamiento reforzado del prompt** del VLM: en lugar de pedir al modelo que identifique cualquier objeto, se le proporcionan:
+La camara ESP32-CAM con sensor OV2640 tiene limitaciones de resolucion y condiciones de iluminacion. Para compensar, se implemento un prompt enriquecido con descripciones visuales especificas de cada producto del catalogo. El VLM recibe no solo los nombres de los productos permitidos sino tambien caracteristicas visuales detalladas (color del empaque, forma, texto visible, logotipo), actuando como un refuerzo contextual que mejora la precision de deteccion bajo condiciones de imagen no ideales.
 
-1. Un **catálogo cerrado de 26 productos** exactamente los que forman parte de la alacena real del proyecto.
-2. **Descripciones visuales específicas** de cada producto (color del empaque, forma, texto visible, logotipo).
-3. **Reglas estrictas de no-alucinación**: si el texto del empaque no es legible o la marca no puede distinguirse con claridad, el modelo debe omitir el producto.
-
-Este enfoque actúa como un refuerzo contextual que compensa la baja resolución de la cámara, permitiendo al VLM hacer inferencias más precisas sobre los productos incluso cuando la imagen no es perfectamente nítida.
-
-### Catálogo de productos soportados
-
-| # | Producto | Descripción visual para el VLM |
-|---|---|---|
-| 1 | Refresco Ameyal | Botella color rosa |
-| 2 | Paquete Gelatina Dany | Dos vasos morados |
-| 3 | Jugo de Mango Jumex | Caja azul con mango amarillo |
-| 4 | Cereal Trix | Caja roja con logo Trix en verde |
-| 5 | Cartón Nutri Leche | Caja blanca, logo con letras blancas |
-| 6 | Cartón LALA leche | Caja blanca, logo azul con franja roja |
-| 7 | Aceite Nutrioli | Botella dorada con etiqueta verde |
-| 8 | Botella Bonafont | Botella de agua transparente |
-| 9 | Chocolate Larín | Barra de color verde |
-| 10 | Mantequilla Primavera | Barra de color amarillo |
-| 11 | ChocoMilk | Lata cilíndrica azul |
-| 12 | Paquete Espagueti | Paquete transparente con logo amarillo-negro |
-| 13 | Jugo de fresa Boing | Lata roja con letras verdes |
-| 14 | Papas Pringles | Lata roja con logo blanco |
-| 15 | Jugo de mango del Valle | Lata amarilla con logo negro-blanco |
-| 16 | Salsa de tomate | Lata negra con logo rojo |
-| 17 | Mayonesa McCormick | Frasco blanco con etiqueta y tapa rojas |
-| 18 | Sal La Fina | Frasco blanco con etiqueta azul-rojo y tapa amarilla |
-| 19 | Jugo FuseTea | Lata amarilla con letras negras |
-| 20 | Jugo pera Jumex | Lata azul con logo verde-rojo |
-| 21 | Bebida Energética Red Bull | Lata azul-gris con logo rojo-amarillo |
-| 22 | Refresco CocaCola | Botella negra con etiqueta roja |
-| 23 | Cereal Nesquik | Caja amarilla con logo café y azul |
-| 24 | Cereal ChocoKrispis | Caja café con letras amarillas |
-| 25 | Refresco Fanta | Lata naranja con logo letras verdes |
-
-### Flujo de detección
+### Flujo de deteccion
 
 ```
 ESP32-CAM
-    │
-    │ POST /vision/upload (bytes)
-    ▼
+    |
+    | POST /vision/upload (bytes)
+    v
 Backend guarda latest.jpg
-    │
-    │ detectar_alimentos(path)
-    ▼
+    |
+    | detectar_alimentos(path)
+    v
 Pillow abre imagen
-    │
-    │ Gemini 2.5 Flash
-    │ + prompt con catálogo + descripciones visuales
-    │ + response_mime_type: application/json
-    ▼
+    |
+    | Gemini 2.5 Flash Vision
+    | + catalogo de 26 productos
+    | + descripciones visuales especificas
+    | + response_mime_type: application/json
+    v
 JSON estructurado:
 {
   "foods": [
-    {"name": "Papas Pringles", "confidence": 0.95, "quantity": "1"},
-    ...
+    {"name": "Papas Pringles", "confidence": 0.95, "quantity": "1"}
   ]
 }
-    │
-    │ Filtro: confidence >= 0.5
-    ▼
-VisionInventory.compare_inv()
-    │ Compara detectados vs inventario actual
-    │ Clasifica en: nuevos | presentes | faltantes
-    ▼
-InventoryService.add_food() → SQLite
+    |
+    | Filtro: confidence >= 0.5
+    v
+Normalizacion: estandarizacion de nombres, eliminacion de duplicados
+    |
+    v
+InventoryService.add_food() --> SQLite
 ```
 
-### Lógica de sincronización de inventario
+### Catalogo de productos soportados
 
-El módulo `VisionInventory` no sobreescribe ciegamente el inventario. Compara lo detectado con el estado actual y clasifica los cambios en tres categorías:
+| Producto | Descripcion visual para el VLM |
+|---|---|
+| Refresco Ameyal | Botella color rosa |
+| Paquete Gelatina Dany | Dos vasos morados |
+| Jugo de Mango Jumex | Caja azul con mango amarillo |
+| Cereal Trix | Caja roja con logo Trix en verde |
+| Carton Nutri Leche | Caja blanca con logo de letras blancas |
+| Carton LALA leche | Caja blanca con logo azul y franja roja |
+| Aceite Nutrioli | Botella dorada con etiqueta y tapa verdes |
+| Botella Bonafont | Botella de agua transparente |
+| Chocolate Larin | Barra de color verde |
+| Mantequilla Primavera | Barra de color amarillo |
+| ChocoMilk | Lata cilindrica de color azul |
+| Paquete Espagueti | Paquete transparente con logo amarillo-negro |
+| Jugo de fresa Boing | Lata roja con letras verdes |
+| Papas Pringles | Lata roja con logo blanco |
+| Jugo de mango del Valle | Lata amarilla con logo negro-blanco |
+| Salsa de tomate | Lata negra con logo rojo |
+| Mayonesa McCormick | Frasco blanco con etiqueta y tapa rojas |
+| Sal La Fina | Frasco blanco con etiqueta azul-rojo y tapa amarilla |
+| Jugo FuseTea | Lata amarilla con letras negras |
+| Jugo pera Jumex | Lata azul con logo verde-rojo |
+| Bebida Energetica Red Bull | Lata azul-gris con logo rojo-amarillo |
+| Refresco CocaCola | Botella negra con etiqueta roja |
+| Cereal Nesquik | Caja amarilla con logo cafe y azul |
+| Cereal ChocoKrispis | Caja cafe con letras amarillas |
+| Refresco Fanta | Lata naranja con logo de letras verdes |
 
-- **Nuevos**: productos detectados que no estaban en el inventario → se agregan
-- **Presentes**: productos detectados que ya estaban → se confirman
-- **Faltantes**: productos que estaban en el inventario pero no se detectaron en la foto → se marcan para revisión
+### Capturas del sistema de vision
+
+<!-- Agregar aqui capturas de la camara ESP32-CAM y las detecciones -->
+<!-- Ejemplo: -->
+<!-- ![Captura ESP32-CAM alacena](./assets/vision_captura1.jpg) -->
+<!-- ![Resultado deteccion Gemini](./assets/vision_resultado1.png) -->
+
+> Insertar capturas de la camara ESP32-CAM apuntando a la alacena y los resultados de deteccion de Gemini Vision.
 
 ---
 
-## Copilotos conversacionales
+## Orquestador LLM
 
-El sistema implementa una arquitectura de **doble clasificador** para el enrutamiento de intenciones:
+El orquestador es el componente central de la arquitectura. A diferencia de los chatbots tradicionales, el LLM nunca ejecuta logica de negocio ni modifica directamente la base de datos. Para cada mensaje entrante ejecuta la siguiente secuencia:
 
-### Nivel 1: Clasificador por palabras clave (`ChatRouterService`)
+1. Comprension del lenguaje natural
+2. Clasificacion de intencion
+3. Extraccion de entidades
+4. Estimacion de confianza
+5. Generacion de JSON estructurado
+6. Validacion de esquema
+7. Seleccion de agente
 
-Clasificador rápido basado en coincidencia de términos clave. Procesa el mensaje del usuario y asigna una de 11 intenciones posibles:
-
-| Intención | Palabras clave disparadoras |
-|---|---|
-| `inventory` | "qué tengo", "qué hay", "alacena", "despensa", "mis productos" |
-| `add_inventory` | "compré", "agregué", "añade", "tengo ahora" |
-| `remove_inventory` | "elimina", "quita", "consumí", "me comí", "ya no tengo" |
-| `rename_inventory` | "cambia", "renombra", "corrige", "quise decir" |
-| `recipe` | "receta", "cocinar", "qué puedo cocinar", "qué preparo" |
-| `shopping` | "compras", "lista de compras", "qué falta", "qué necesito" |
-| `meal_plan` | "dieta", "plan semanal", "plan alimenticio" |
-| `nutrition` | "calorías", "macros", "TMB", "GET" |
-| `reminders` | "caducidad", "consumir pronto", "qué se va a echar a perder" |
-| `profile_register` | "registrar perfil" |
-| `general` | cualquier otro mensaje |
-
-### Nivel 2: Orquestador LLM (`OrchestratorService`)
-
-Para mensajes ambiguos o complejos, el orquestador usa `llama3.2:3b` para interpretar la intención y extraer entidades estructuradas:
+Ejemplo de salida estructurada del orquestador:
 
 ```json
 {
@@ -210,50 +207,134 @@ Para mensajes ambiguos o complejos, el orquestador usa `llama3.2:3b` para interp
   "confidence": 0.95,
   "entities": {
     "items": [
-      {"name": "mangos", "quantity": 2}
+      {
+        "name": "mangos",
+        "quantity": 2
+      }
     ]
   },
   "needs_profile": false,
-  "reason": "El usuario indica que compró productos."
+  "reason": "El usuario indica que compro productos para agregar al inventario."
 }
 ```
 
-### Servicios especializados
+Cuando la respuesta falla la validacion de esquema, el backend activa un mecanismo de fallback basado en reglas para mantener la disponibilidad del sistema sin interrumpir la interaccion del usuario.
 
-| Servicio | Función |
+### Intenciones soportadas
+
+| Intencion | Palabras clave disparadoras |
 |---|---|
-| `RecipeService` | Genera recetas basadas en el inventario actual |
-| `ShoppingService` | Crea listas de compras organizadas por categoría |
-| `MealPlanService` | Diseña planes alimenticios semanales |
-| `NutritionService` | Calcula macros, TMB y GET según el perfil del usuario |
-| `InventoryAnalysisService` | Análisis del estado general de la despensa |
+| `inventory` | "que tengo", "que hay", "alacena", "despensa", "mis productos" |
+| `add_inventory` | "compre", "agregue", "aniade", "tengo ahora" |
+| `remove_inventory` | "elimina", "quita", "consumi", "me comi", "ya no tengo" |
+| `rename_inventory` | "cambia", "renombra", "corrige", "quise decir" |
+| `recipe` | "receta", "cocinar", "que puedo cocinar", "que preparo" |
+| `shopping` | "compras", "lista de compras", "que falta", "que necesito" |
+| `meal_plan` | "dieta", "plan semanal", "plan alimenticio" |
+| `nutrition` | "calorias", "macros", "TMB", "GET" |
+| `reminders` | "caducidad", "consumir pronto", "que se va a echar a perder" |
+| `profile_register` | "registrar perfil" |
+| `general` | cualquier otro mensaje |
 
-Todos los servicios construyen un prompt enriquecido con el inventario actual y el perfil nutricional del usuario, y lo envían a `llama3.2:3b` mediante la API local de Ollama (`http://localhost:11434/api/generate`).
+---
+
+## Agentes especializados
+
+| Agente | Responsabilidad |
+|---|---|
+| Inventory Agent | Consulta, insercion, actualizacion, eliminacion y renombrado de productos |
+| Recipe Agent | Generacion de recetas priorizando ingredientes del inventario actual |
+| Nutrition Agent | Calculo de TMB, GET, calorias recomendadas y distribucion de macronutrientes |
+| Shopping Agent | Recomendaciones de compra segun niveles de inventario y balance nutricional |
+| Meal Planning Agent | Planes semanales combinando disponibilidad en inventario y requisitos nutricionales |
+
+Cada agente recibe entidades estructuradas del orquestador, nunca lenguaje natural. Esto mantiene la logica de negocio determinista e independiente de la implementacion del modelo de lenguaje.
+
+---
+
+## Integracion con WhatsApp
+
+La interaccion del usuario se implemento mediante WhatsApp usando la libreria whatsapp-web.js. Los mensajes entrantes se normalizan automaticamente antes de ser enviados al backend FastAPI. Una vez completado el procesamiento, las respuestas se devuelven al usuario por el mismo canal.
+
+El uso de WhatsApp como interfaz principal elimina la necesidad de una aplicacion movil dedicada y proporciona un mecanismo de interaccion familiar para la mayoria de los usuarios.
+
+### Capturas del chat de WhatsApp
+
+<!-- Agregar aqui capturas del chat de WhatsApp con el sistema -->
+<!-- Ejemplo: -->
+<!-- ![Chat WhatsApp - consulta inventario](./assets/whatsapp_inventario.jpg) -->
+<!-- ![Chat WhatsApp - solicitud de receta](./assets/whatsapp_receta.jpg) -->
+<!-- ![Chat WhatsApp - lista de compras](./assets/whatsapp_compras.jpg) -->
+
+> Insertar capturas del chat de WhatsApp mostrando consultas de inventario, solicitudes de recetas, listas de compras y planes nutricionales.
+
+---
+
+## Dashboard de observabilidad
+
+Una de las principales contribuciones de la arquitectura es la capa de observabilidad que monitorea continuamente el comportamiento interno de cada componente. A diferencia de los asistentes conversacionales convencionales que exponen solo la respuesta final, el dashboard proporciona informacion detallada sobre cada etapa de la pipeline de ejecucion.
+
+### Variables monitoreadas
+
+| Variable | Descripcion |
+|---|---|
+| Latencia extremo a extremo | Tiempo total de respuesta |
+| Latencia de inferencia LLM | Tiempo de procesamiento del modelo de lenguaje |
+| Prompt tokens | Tokens de entrada |
+| Completion tokens | Tokens generados |
+| Total tokens | Consumo total de tokens |
+| Tokens por segundo | Velocidad de inferencia |
+| Precision de clasificacion de intenciones | Accuracy del orquestador |
+| Validez JSON estructurado | Tasa de salidas parseables |
+| Validacion de esquema | Tasa de cumplimiento del esquema esperado |
+| Tasa de exito de ejecucion | Porcentaje de solicitudes completadas correctamente |
+| Historial de conversacion | Registro completo de interacciones |
+| Trazas de ejecucion de agentes | Secuencia de agentes invocados por solicitud |
+
+### Capturas del dashboard
+
+<!-- Agregar aqui capturas del dashboard administrativo -->
+<!-- Ejemplo: -->
+<!-- ![Dashboard - metricas generales](./assets/dashboard_general.png) -->
+<!-- ![Dashboard - clasificacion de intenciones](./assets/dashboard_intenciones.png) -->
+<!-- ![Dashboard - metricas del LLM](./assets/dashboard_llm.png) -->
+
+> Insertar capturas del dashboard mostrando metricas de latencia, consumo de tokens, precision de clasificacion de intenciones y trazas de ejecucion.
+
+### Capturas del frontend
+
+<!-- Agregar aqui capturas del panel de administracion web -->
+<!-- Ejemplo: -->
+<!-- ![Frontend - panel de inventario](./assets/frontend_inventario.png) -->
+<!-- ![Frontend - panel de chat](./assets/frontend_chat.png) -->
+<!-- ![Frontend - panel de metricas](./assets/frontend_metricas.png) -->
+
+> Insertar capturas del frontend web mostrando el panel de inventario, la interfaz de chat y el panel de metricas.
 
 ---
 
 ## API REST
 
-| Método | Endpoint | Descripción |
+| Metodo | Endpoint | Descripcion |
 |---|---|---|
 | GET | `/` | Health check |
 | GET | `/inventory/db` | Consulta inventario desde SQLite |
 | POST | `/inventory/add` | Agrega producto manualmente |
 | POST | `/inventory/remove` | Elimina o reduce cantidad de producto |
 | POST | `/vision/upload` | Recibe imagen del ESP32-CAM |
-| POST | `/vision/detect` | Analiza `latest.jpg` y actualiza inventario |
+| POST | `/vision/detect` | Analiza latest.jpg y actualiza inventario |
 | POST | `/vision/upload-and-detect` | Sube imagen y detecta en un solo paso |
 | POST | `/chat` | Consulta al copiloto activo |
 | POST | `/orchestrator` | Enrutamiento avanzado con LLM |
-| GET | `/metrics` | Historial de métricas del LLM |
-| GET | `/metrics/summary` | Resumen estadístico del sistema |
-| GET | `/metrics/intent-tests` | Resultados de pruebas de intención |
+| GET | `/metrics` | Historial de metricas del LLM |
+| GET | `/metrics/summary` | Resumen estadistico del sistema |
+| GET | `/metrics/intent-tests` | Resultados de pruebas de intencion |
 
 ---
 
 ## Base de datos
 
-SQLite con 5 tablas:
+SQLite con tablas independientes para cada dominio de informacion:
 
 ```sql
 -- Inventario de productos
@@ -261,7 +342,7 @@ CREATE TABLE inventory (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE,
     quantity INTEGER NOT NULL,
-    source TEXT,              -- 'vision', 'api', 'manual'
+    source TEXT,
     last_update DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -279,7 +360,7 @@ CREATE TABLE users (
     budget REAL
 );
 
--- Métricas de inferencia del LLM
+-- Metricas de inferencia del LLM
 CREATE TABLE llm_metrics (
     model TEXT,
     provider TEXT,
@@ -291,7 +372,7 @@ CREATE TABLE llm_metrics (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Historial de conversaciones
+-- Historial de conversaciones con metricas del orquestador
 CREATE TABLE chat_history (
     numero TEXT,
     mensaje TEXT,
@@ -301,140 +382,120 @@ CREATE TABLE chat_history (
     success INTEGER,
     orchestrator_intent TEXT,
     orchestrator_confidence REAL,
+    orchestrator_json_valid INTEGER,
+    orchestrator_schema_valid INTEGER,
+    orchestrator_tokens INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Pruebas de intención
+-- Dataset de pruebas de intencion
 CREATE TABLE intent_tests (
     message TEXT,
     expected_intent TEXT,
     detected_intent TEXT,
-    is_correct INTEGER,
+    response TEXT,
     latency_seconds REAL,
+    is_correct INTEGER,
+    has_response INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-### Lógica upsert en inventario
-
-Las inserciones de visión usan `ON CONFLICT ... DO UPDATE` para que una segunda detección del mismo producto sume cantidad en lugar de crear un duplicado:
-
-```sql
-INSERT INTO inventory(name, quantity, source, last_update)
-VALUES (?, ?, 'vision', CURRENT_TIMESTAMP)
-ON CONFLICT(name)
-DO UPDATE SET
-    quantity = inventory.quantity + excluded.quantity,
-    source = 'vision',
-    last_update = CURRENT_TIMESTAMP;
-```
+Las inserciones de inventario usan `ON CONFLICT ... DO UPDATE` para que una segunda deteccion del mismo producto sume cantidad en lugar de crear un duplicado.
 
 ---
 
-## Métricas y evaluación
+## Metodologia experimental
 
-El sistema registra métricas en tres dimensiones:
+Se implementaron dos estrategias de evaluacion complementarias.
 
-### 1. Métricas de inferencia LLM
+### Evaluacion controlada
 
-Cada llamada a Ollama registra:
+Se construyo un dataset de mensajes representativos cubriendo todas las operaciones soportadas por el sistema. Cada mensaje tiene una etiqueta de intencion esperada que permite evaluar cuantitativamente las predicciones del orquestador. Para cada caso de prueba el sistema registra automaticamente:
 
-| Métrica | Descripción |
-|---|---|
-| `prompt_tokens` | Tokens de entrada |
-| `completion_tokens` | Tokens generados |
-| `latency_seconds` | Tiempo total de respuesta |
-| `tokens_per_second` | Velocidad de generación |
+- Intencion esperada y predicha
+- Respuesta generada
+- Latencia extremo a extremo
+- Validez del JSON
+- Resultado de validacion del esquema
+- Estado de ejecucion
 
-### 2. Métricas del orquestador
+Esto permite calcular Accuracy, Precision, Recall y F1-score, ademas de matrices de confusion para visualizar ambiguedades entre intenciones.
 
-| Métrica | Descripción |
-|---|---|
-| `orchestrator_confidence` | Confianza del LLM en la intención detectada |
-| `orchestrator_json_valid` | Si el JSON devuelto por el LLM es parseable |
-| `orchestrator_schema_valid` | Si el JSON cumple el esquema esperado |
+### Evaluacion con usuarios reales via WhatsApp
 
-### 3. Métricas de calidad de intención
-
-El sistema calcula automáticamente:
-
-| Métrica | Fórmula |
-|---|---|
-| Accuracy | correctas / total |
-| Precision | TP / (TP + FP) |
-| Recall | TP / (TP + FN) |
-| F1-score | 2 × P × R / (P + R) |
-
-Estas métricas se consultan en tiempo real desde el panel de métricas del frontend mediante `GET /metrics/summary`.
+Los usuarios interactuaron naturalmente con el sistema sin seguir plantillas predefinidas, usando lenguaje coloquial, oraciones incompletas y expresiones conversacionales. Cada interaccion genero una traza de ejecucion completa almacenada en la base de datos para analisis posterior.
 
 ---
 
-## Pruebas realizadas
+## Resultados
 
-### Pruebas de detección visual
+### Clasificacion de intenciones (evaluacion controlada)
 
-Se realizaron capturas con la ESP32-CAM en condiciones de iluminación variable. El prompt enriquecido con descripciones visuales específicas mejoró significativamente la tasa de detección correcta frente al prompt genérico:
+| Metrica | Valor |
+|---|---|
+| Accuracy | 100% |
+| Precision | 100% |
+| Recall | 100% |
+| F1-score | 100% |
 
-| Condición | Sin descripciones visuales | Con descripciones visuales |
-|---|:---:|:---:|
-| Iluminación óptima | ~60% | ~90% |
-| Iluminación reducida | ~30% | ~70% |
-| Productos parcialmente ocultos | ~20% | ~45% |
+Todos los casos del benchmark fueron clasificados correctamente. Ademas, todas las respuestas pasaron la validacion de JSON y la verificacion de esquema, indicando que el modelo produce de forma consistente salidas estructuradas compatibles con los agentes especializados.
 
-> Nota: los porcentajes son estimaciones basadas en pruebas cualitativas con el catálogo de 26 productos.
+### Rendimiento del modelo de lenguaje
 
-### Pruebas de intención del chat
+| Metrica | Promedio |
+|---|---|
+| Prompt Tokens | 340 |
+| Completion Tokens | 52 |
+| Total Tokens | 392 |
+| Latencia de inferencia | 27.15 s |
+| Tokens/s | 1.92 |
 
-Se probaron los 11 tipos de intención con variaciones de lenguaje natural en español:
+La latencia corresponde principalmente a la ejecucion local del LLM en hardware de consumo mediante Ollama. Aunque la latencia es considerablemente mayor que servicios comerciales en la nube, el despliegue local proporciona control completo sobre los datos del usuario, elimina costos de API externos y preserva la privacidad.
 
-| Intención | Ejemplos probados | Resultado |
+### Metricas operacionales del sistema
+
+| Metrica | Valor |
+|---|---|
+| Latencia promedio del backend | 0.003 s |
+| Latencia promedio del chat | 2.55 s |
+| Latencia maxima del chat | 27.97 s |
+| Tasa de exito de arquitectura | 100% |
+| Validez de JSON estructurado | 100% |
+| Tasa de validacion de esquema | 100% |
+
+El backend contribuye solo una fraccion minima del tiempo total de ejecucion. La mayor parte del costo computacional proviene de la inferencia del modelo de lenguaje, confirmando que la arquitectura de software en si misma introduce una sobrecarga minima.
+
+---
+
+## Stack tecnologico
+
+| Componente | Tecnologia | Version |
 |---|---|---|
-| `inventory` | "qué tengo", "qué hay en mi alacena" | ✅ Correcto |
-| `add_inventory` | "compré leche", "agregué 2 jugos" | ✅ Correcto |
-| `remove_inventory` | "me comí las papas", "ya no tengo cereal" | ✅ Correcto |
-| `recipe` | "qué puedo cocinar hoy", "dame una receta" | ✅ Correcto |
-| `shopping` | "qué me falta comprar", "lista del súper" | ✅ Correcto |
-| `nutrition` | "cuántas calorías necesito", "calcula mi TMB" | ✅ Correcto |
-| `reminders` | "qué se va a echar a perder" | ✅ Correcto |
-
-### Pruebas de pipeline completo
-
-| Prueba | Resultado |
-|---|---|
-| ESP32-CAM → upload → detect → SQLite | ✅ Funcional |
-| Chat → OrchestratorService → JSON → acción | ✅ Funcional |
-| Upsert: misma detección dos veces | ✅ Suma cantidad, no duplica |
-| Perfil de usuario → plan nutricional personalizado | ✅ Funcional |
-| Recordatorio de productos perecederos | ✅ Funcional |
-
----
-
-## Stack tecnológico
-
-| Componente | Tecnología | Versión |
-|---|---|---|
-| Hardware cámara | ESP32-CAM (OV2640) | — |
-| VLM (visión) | Gemini 2.5 Flash | API v2 |
-| LLM (chat) | llama3.2:3b vía Ollama | 3b |
+| Hardware camara | ESP32-CAM (OV2640) | --- |
+| VLM (vision) | Gemini 2.5 Flash Vision | API v2 |
+| LLM (orquestador) | llama3.2:3b via Ollama | 3b |
 | Backend | FastAPI + Uvicorn | 0.136+ |
 | Base de datos | SQLite | 3.x |
-| Librería VLM | google-genai | 2.8+ |
+| Mensajeria | whatsapp-web.js | --- |
+| Libreria VLM | google-genai | 2.8+ |
 | Procesamiento imagen | Pillow | 12.x |
 | HTTP client | httpx | 0.28+ |
-| Frontend | HTML / CSS / JS | — |
+| Frontend | HTML / CSS / JavaScript | --- |
 | Variables de entorno | python-dotenv | 1.x |
 
 ---
 
-## Instalación y uso
+## Instalacion y uso
 
 ### Requisitos previos
 
 - Python 3.11+
-- [Ollama](https://ollama.com) instalado y corriendo con `llama3.2:3b`
-- API Key de Gemini ([obtener aquí](https://aistudio.google.com))
+- Node.js (para whatsapp-web.js)
+- Ollama instalado y corriendo con llama3.2:3b
+- API Key de Gemini (obtener en https://aistudio.google.com)
 
-### Instalación
+### Instalacion
 
 ```bash
 # 1. Clona el repositorio
@@ -443,15 +504,16 @@ cd ProspectivaTecnologica/backend
 
 # 2. Crea y activa entorno virtual
 python -m venv .venv
+
 # Windows:
 .\.venv\Scripts\Activate.ps1
 # Linux/Mac:
 source .venv/bin/activate
 
-# 3. Instala dependencias
+# 3. Instala dependencias Python
 pip install fastapi uvicorn google-genai pillow python-dotenv httpx
 
-# 4. Crea el archivo .env en la raíz del proyecto
+# 4. Crea el archivo .env en la raiz del proyecto
 echo "GEMINI_API_KEY=tu_key_aqui" > ../.env
 
 # 5. Inicializa la base de datos
@@ -467,10 +529,22 @@ python -m uvicorn app.main:app --reload --port 8000
 
 ### Uso
 
-- **API docs**: `http://localhost:8000/docs`
-- **Frontend**: abre `frontend/admin.html` con Live Server
-- **Subir imagen manualmente**: `POST /vision/upload` con la imagen en el body
-- **Detectar y actualizar inventario**: `POST /vision/detect`
+- API docs interactivos: http://localhost:8000/docs
+- Frontend admin: abrir frontend/admin.html con Live Server
+- Subir imagen manualmente: POST /vision/upload con la imagen en el body
+- Detectar y actualizar inventario: POST /vision/detect
+
+---
+
+## Descargas
+
+| Archivo | Descripcion | Enlace |
+|---|---|---|
+| Repositorio completo | Codigo fuente del proyecto | [Ver en GitHub](https://github.com/Marthavlds1/ProspectivaTecnologica) |
+| Articulo IEEE | Reporte tecnico completo en formato IEEE | [Descargar PDF](./ReporteProspectivaTecnologica.pdf) |
+| .env.example | Plantilla de variables de entorno | [Ver archivo](./backend/app/vision/.env.example) |
+
+> Para descargar el repositorio completo como ZIP: Code -> Download ZIP en la pagina principal del repositorio de GitHub.
 
 ---
 
@@ -478,6 +552,7 @@ python -m uvicorn app.main:app --reload --port 8000
 
 ```
 ProspectivaTecnologica/
+├── ReporteProspectivaTecnologica.pdf
 ├── backend/
 │   ├── app/
 │   │   ├── api/
@@ -512,9 +587,13 @@ ProspectivaTecnologica/
 │   └── images/
 │       └── latest.jpg
 └── frontend/
-    └── admin.html
+    ├── admin.html
+    ├── app.js
+    └── styles.css
 ```
 
 ---
 
-*Proyecto desarrollado como parte del curso de Prospectiva de IA · IBERO Ciudad de México · 2026*
+Proyecto desarrollado como parte del curso de Prospectiva de IA · IBERO Ciudad de Mexico · 2026
+
+Publicado en formato IEEE: *A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management*
