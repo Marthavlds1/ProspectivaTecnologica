@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Portafolio — Proyecto Final  
+title: Portafolio — Alacena Inteligente 
 nav_order: 10
 ---
 # Alacena Inteligente
@@ -34,13 +34,27 @@ Universidad Iberoamericana Ciudad de Mexico — 2026
 
 ---
 
-## 1. Resumen del proyecto
+## 1. Descripción General
 
 Alacena Inteligente es un sistema multi-agente para la gestion automatizada de inventario alimentario domestico. El sistema detecta productos en una despensa mediante una camara ESP32-CAM, los registra en una base de datos, y permite al usuario consultar su inventario, generar recetas, obtener listas de compras, calcular su perfil nutricional y recibir planes de alimentacion — todo mediante lenguaje natural a traves de WhatsApp.
 
-La contribucion principal no es solo la implementacion del asistente, sino la arquitectura de software que la sustenta: una separacion clara entre percepcion visual, razonamiento en lenguaje natural, ejecucion de agentes especializados y monitoreo continuo del sistema.
+A diferencia de los asistentes conversacionales convencionales, donde un unico modelo de lenguaje es responsable de interpretar solicitudes y generar respuestas, la arquitectura propuesta distribuye las responsabilidades entre agentes especializados coordinados por una capa de orquestacion. Un modelo de lenguaje visual (VLM) detecta productos alimenticios mediante imagenes capturadas por una camara ESP32-CAM. Un LLM opera exclusivamente como agente orquestador que interpreta solicitudes en lenguaje natural, extrae entidades estructuradas y delega la ejecucion a agentes de dominio especializados.
+
+La arquitectura incorpora ademas una capa de observabilidad que registra latencia, consumo de tokens, velocidad de inferencia, precision de clasificacion de intenciones, validacion de salidas estructuradas y trazas de ejecucion a traves de un dashboard administrativo.
+
+### Funcionalidades principales
+
+| Funcionalidad | Descripcion |
+|---|---|
+| Deteccion visual | ESP32-CAM captura la alacena y Gemini Vision identifica productos |
+| Inventario automatico | Los productos detectados se agregan o actualizan en SQLite |
+| Orquestacion LLM | llama3.2:3b interpreta intenciones y genera JSON estructurado |
+| Agentes especializados | Inventario, recetas, nutricion, compras y plan semanal |
+| WhatsApp | Interfaz conversacional via whatsapp-web.js |
+| Observabilidad | Dashboard con metricas en tiempo real de toda la arquitectura |
 
 El articulo tecnico completo del proyecto esta disponible en la seccion de [Descargas](#14-descargas).
+
 
 ---
 
@@ -52,6 +66,17 @@ Las soluciones actuales — aplicaciones de registro manual, codigos de barras, 
 
 Este proyecto propone una alternativa donde la alacena se actualiza sola mediante vision por computadora, y el usuario puede interactuar con ella en lenguaje natural desde la aplicacion de mensajeria que ya usa todos los dias.
 
+Objetivos - Desarrollar un asistente nutrimental inteligente que permita:
+
+Gestionar inventario de alimentos.
+Generar recetas personalizadas.
+Crear listas de compras.
+Generar planes alimenticios.
+Interactuar mediante WhatsApp.
+Utilizar modelos de lenguaje (LLM) ejecutados localmente.
+Reconocer productos automáticamente mediante visión computacional (VLM)
+Automatizar la gestión de una alacena doméstica.
+
 ---
 
 ## 3. Arquitectura del sistema
@@ -59,52 +84,46 @@ Este proyecto propone una alternativa donde la alacena se actualiza sola mediant
 El sistema sigue una arquitectura de cinco capas independientes y coordinadas:
 
 ```
-+-------------------------------------------------------------+
-|  CAPA 1 — PERCEPCION                                        |
-|                                                             |
-|  ESP32-CAM captura imagen de la alacena                     |
-|  Gemini 2.5 Flash Vision detecta productos                  |
-|  Resultado: JSON con nombre, confianza y cantidad           |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|  CAPA 2 — ORQUESTACION                                      |
-|                                                             |
-|  llama3.2:3b via Ollama (local, sin costo, sin nube)        |
-|  Interpreta el mensaje del usuario en lenguaje natural      |
-|  Genera JSON estructurado con intencion y entidades         |
-|  Valida el esquema antes de delegar                         |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|  CAPA 3 — EJECUCION (AGENTES ESPECIALIZADOS)                |
-|                                                             |
-|  Inventory Agent  |  Recipe Agent  |  Nutrition Agent       |
-|  Shopping Agent   |  Meal Planning Agent                    |
-|                                                             |
-|  Cada agente recibe entidades estructuradas, nunca          |
-|  lenguaje natural. La logica de negocio es determinista.    |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|  CAPA 4 — PERSISTENCIA                                      |
-|                                                             |
-|  SQLite con tablas independientes:                          |
-|  inventory | users | llm_metrics                            |
-|  chat_history | intent_tests                                |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|  CAPA 5 — OBSERVABILIDAD                                    |
-|                                                             |
-|  Dashboard web con metricas en tiempo real                  |
-|  Latencia, tokens, precision de intenciones,                |
-|  trazas de ejecucion, historial de conversaciones           |
-+-------------------------------------------------------------+
++----------------------------------------------------------+
+|                    CAPA DE PERCEPCION                    |
+|                                                          |
+|   ESP32-CAM (OV2640)                                     |
+|   Captura imagen --> POST /vision/upload                 |
++------------------------+---------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|                CAPA DE ORQUESTACION                      |
+|                                                          |
+|   LLM Orchestrator (llama3.2:3b via Ollama)              |
+|   Comprension de lenguaje natural                        |
+|   Clasificacion de intenciones                           |
+|   Extraccion de entidades --> JSON estructurado          |
++------------------------+---------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|            CAPA DE EJECUCION (AGENTES)                   |
+|                                                          |
+|   Inventory Agent  |  Recipe Agent  |  Nutrition Agent   |
+|   Shopping Agent   |  Meal Planner                       |
++------------------------+---------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|                 CAPA DE PERSISTENCIA                     |
+|                                                          |
+|   SQLite: inventory | users | llm_metrics                |
+|           chat_history | intent_tests                    |
++----------------------------------------------------------+
+                         |
+                         v
++----------------------------------------------------------+
+|                CAPA DE OBSERVABILIDAD                    |
+|                                                          |
+|   Dashboard web (HTML/CSS/JS)                            |
+|   Metricas en tiempo real via REST APIs                  |
++----------------------------------------------------------+
 ```
 
 El usuario accede al sistema a traves de dos interfaces: WhatsApp para conversacion cotidiana, y el dashboard administrativo para monitoreo y evaluacion tecnica.
