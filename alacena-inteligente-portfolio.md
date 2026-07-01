@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Portafolio Proyecto final
-nav_order: 10
+title: Portafolio — Proyecto Final  
+nav_order: 9
 ---
 
-# Alacena Inteligente
+# A Multi-Agent Architecture Based on Vision and Language Models for Intelligent
 
-**Sistema ciber-físico para la gestión autónoma de inventario alimentario mediante visión por computadora y modelos de lenguaje de gran escala**
+**Sistema ciberfísico para la gestión autónoma de inventario alimentario mediante visión por computadora y modelos de lenguaje de gran escala**
 
 > Proyecto final · Prospectiva de IA · Ingeniería Mecatrónica · Universidad Iberoamericana Ciudad de México · 2026
 
