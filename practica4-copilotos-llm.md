@@ -214,22 +214,7 @@ El flujo de `app.js`:
 <!-- Insertar captura de una conversación con el perfil comprador -->
 ![Prueba comprador](assets/img/p4/agente_compras.jpeg)
 
-
 ---
-
-## 6. Comparación genérico vs especializado
-
-| Criterio | Asistente genérico | Copiloto especializado |
-|---|---|---|
-| Claridad | | |
-| Uso de ejemplos | | |
-| Nivel adecuado | | |
-| Advertencias técnicas | | |
-| Formato de respuesta | | |
-| Utilidad para el proyecto | | |
-
----
-
 ## 7. Reflexión técnica
 
 **¿Qué perfil fue más útil para el proyecto de alacena inteligente?**

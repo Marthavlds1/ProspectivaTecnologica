@@ -3,11 +3,6 @@ layout: default
 title: Práctica 6 — Práctica 6: Evaluación arquitectura LLM + MQTT
 nav_order: 8
 ---
----
-layout: default
-title: Práctica 6 — Práctica 6: Evaluación arquitectura LLM + MQTT
-nav_order: 8
----
 
 # Práctica 6 — Práctica 6: Evaluación arquitectura LLM + MQTT
 
