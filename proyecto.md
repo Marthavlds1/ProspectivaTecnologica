@@ -174,7 +174,7 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 ---
 
-**Captura 1 — Modulo ESP32-CAM fisico**
+**Modulo ESP32-CAM fisico**
 
 ![ESP32-CAM modulo fisico](assets/img/pf/esp32.png)
 
@@ -182,14 +182,14 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 ---
 
-**Captura 2 — Alacena con los productos del catalogo**
+**Alacena con los productos del catalogo**
 ![Alacena con productos](assets/img/pf/alacena.png) 
 
 > Vista de la alacena fisica utilizada para las pruebas, con los 26 productos del catalogo dispuestos de manera visible. Esta es la escena que la ESP32-CAM captura para que Gemini Vision realice la deteccion.
 
 ---
 
-**Captura 3 — Imagen capturada por la ESP32-CAM**
+**Imagen capturada por la ESP32-CAM**
 
 ![Imagen latest.jpg capturada por ESP32-CAM](assets/img/lastest.png)
 
@@ -197,9 +197,10 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 ---
 
-**Captura 4 — Resultado JSON de Gemini Vision**
+**Resultado JSON de Gemini Vision**
 
 ![Respuesta JSON de Gemini Vision](assets/img/pf/json1.png)
+
 > Salida del endpoint `/vision/detect` mostrando el JSON generado por Gemini Vision con los productos detectados, sus niveles de confianza y cantidades. Solo los productos con confianza mayor o igual a 0.5 se insertan en el inventario.
 
 ---
@@ -289,7 +290,7 @@ CREATE TABLE intent_tests (
 
 ---
 
-**Captura 5 — Documentacion automatica de la API (Swagger UI)**
+**Documentacion automatica de la API (Swagger UI)**
 
 ![Swagger UI FastAPI](assets/img/swagger.png)
 
@@ -297,7 +298,7 @@ CREATE TABLE intent_tests (
 
 ---
 
-**Captura 6 — Inventario actualizado en la base de datos**
+**Inventario actualizado en la base de datos**
 
 ![Inventario en SQLite](assets/img/pf/inventariosql.png)
 
@@ -365,7 +366,7 @@ Si la validacion del esquema falla, el backend activa un fallback basado en regl
 
 ---
 
-**Captura 7 — Respuesta del orquestador en el dashboard**
+**Respuesta del orquestador en el dashboard**
 
 ![Orquestador JSON en dashboard](assets/img/pf/orquestadorjson.png)
 
@@ -373,7 +374,7 @@ Si la validacion del esquema falla, el backend activa un fallback basado en regl
 
 ---
 
-**Captura 8 — Tasa de validacion de esquema JSON**
+**Tasa de validacion de esquema JSON**
 
 ![Validacion JSON orquestador](assets/img/pf/jsonvalidacion.png)
 
@@ -420,7 +421,7 @@ Genera planes de alimentacion semanales combinando tres fuentes de informacion: 
 
 ---
 
-**Captura 9 — Respuesta del Recipe Agent en WhatsApp**
+**Respuesta del Recipe Agent en WhatsApp**
 
 ![Receta generada en WhatsApp](assets/img/pf/recetabot.png)
 
@@ -428,9 +429,9 @@ Genera planes de alimentacion semanales combinando tres fuentes de informacion: 
 
 ---
 
-**Captura 10 — Respuesta del Shopping Agent en WhatsApp**
+**Respuesta del Shopping Agent en WhatsApp**
 
-<!-- ![Lista de compras en WhatsApp](./assets/whatsapp_compras.jpg) -->
+![Lista de compras en WhatsApp](assets/img/pf/compras.png)
 
 > Mensaje de WhatsApp con la lista de compras generada por el Shopping Agent (SmartPantryAI). Muestra los productos organizados por prioridad de compra, con la justificacion de cada recomendacion y el impacto esperado en el balance nutricional de la despensa.
 
