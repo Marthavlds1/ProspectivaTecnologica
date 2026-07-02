@@ -191,7 +191,7 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 **Captura 3 — Imagen capturada por la ESP32-CAM**
 
-![Imagen latest.jpg capturada por ESP32-CAM](assets/img/pf/lastest.png)
+![Imagen latest.jpg capturada por ESP32-CAM](assets/img/lastest.png)
 
 > Imagen real tomada por la ESP32-CAM y guardada como `latest.png` en el servidor. Se puede observar la diferencia de resolucion respecto a una camara convencional, lo que justifica el uso de descripciones visuales especificas en el prompt de Gemini.
 
@@ -199,8 +199,7 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 **Captura 4 — Resultado JSON de Gemini Vision**
 
-<!-- ![Respuesta JSON de Gemini Vision](./assets/gemini_json_resultado.png) -->
-
+![Respuesta JSON de Gemini Vision](assets/img/pf/json1.png)
 > Salida del endpoint `/vision/detect` mostrando el JSON generado por Gemini Vision con los productos detectados, sus niveles de confianza y cantidades. Solo los productos con confianza mayor o igual a 0.5 se insertan en el inventario.
 
 ---
@@ -292,7 +291,7 @@ CREATE TABLE intent_tests (
 
 **Captura 5 — Documentacion automatica de la API (Swagger UI)**
 
-<!-- ![Swagger UI FastAPI](./assets/swagger_ui.png) -->
+![Swagger UI FastAPI](assets/img/swagger.png)
 
 > Vista del endpoint interactivo generado automaticamente por FastAPI en `http://localhost:8000/docs`. Muestra todos los endpoints disponibles del sistema organizados por router: inventario, chat, vision, metricas y orquestador.
 
@@ -300,7 +299,7 @@ CREATE TABLE intent_tests (
 
 **Captura 6 — Inventario actualizado en la base de datos**
 
-<!-- ![Inventario en SQLite](./assets/inventario_sqlite.png) -->
+![Inventario en SQLite](assets/img/pf/inventariosql.png)
 
 > Vista de la tabla `inventory` en SQLite despues de una deteccion visual. Se pueden ver los productos detectados por Gemini Vision con su nombre normalizado, cantidad, fuente de origen (`vision`) y la marca de tiempo de la ultima actualizacion.
 
@@ -368,7 +367,7 @@ Si la validacion del esquema falla, el backend activa un fallback basado en regl
 
 **Captura 7 — Respuesta del orquestador en el dashboard**
 
-<!-- ![Orquestador JSON en dashboard](./assets/orquestador_json.png) -->
+![Orquestador JSON en dashboard](assets/img/pf/orquestadorjson.png)
 
 > Vista del dashboard mostrando el JSON estructurado generado por el orquestador para un mensaje de usuario. Se puede ver la intencion detectada, las entidades extraidas (producto y cantidad), el nivel de confianza y el razonamiento del modelo. Esta informacion se registra en `chat_history` para analisis posterior.
 
@@ -376,7 +375,7 @@ Si la validacion del esquema falla, el backend activa un fallback basado en regl
 
 **Captura 8 — Tasa de validacion de esquema JSON**
 
-<!-- ![Validacion JSON orquestador](./assets/validacion_json.png) -->
+![Validacion JSON orquestador](assets/img/pf/jsonvalidacion.png)
 
 > Panel del dashboard mostrando la tasa de JSON valido y la tasa de validacion de esquema del orquestador durante las pruebas. Ambas metricas alcanzaron 100% en los experimentos controlados, indicando que el modelo produce salidas estructuradas compatibles con los agentes de forma consistente.
 
@@ -423,7 +422,7 @@ Genera planes de alimentacion semanales combinando tres fuentes de informacion: 
 
 **Captura 9 — Respuesta del Recipe Agent en WhatsApp**
 
-<!-- ![Receta generada en WhatsApp](./assets/whatsapp_receta.jpg) -->
+![Receta generada en WhatsApp](assets/img/pf/recetabot.png)
 
 > Mensaje de WhatsApp mostrando una receta completa generada por el Recipe Agent (NutriChefAI) con los ingredientes disponibles en el inventario. La respuesta incluye nombre de la receta, resumen, ingredientes con cantidades, pasos de preparacion, informacion nutrimental estimada, tiempo y consejos.
 
@@ -484,8 +483,6 @@ Una consideracion tecnica importante: el procesamiento de mensajes comienza solo
 ---
 
 **Captura 15 — Alerta de productos proximos a caducar**
-
-<!-- ![Recordatorio caducidad WhatsApp](./assets/whatsapp_recordatorio.jpg) -->
 
 > Respuesta del sistema ante la pregunta de que productos deberian consumirse pronto. El sistema identifica productos perecederos en el inventario (comida preparada: 3 dias, frutas y verduras: 5 dias) y genera una alerta con recomendaciones de consumo.
 
@@ -591,22 +588,6 @@ La prueba cubre el flujo completo de la arquitectura en una sola sesion:
 <!-- ![WhatsApp inventario actualizado prueba final](./assets/prueba_final_inventario.jpg) -->
 
 > Conversacion de WhatsApp donde el usuario consulta el inventario inmediatamente despues de la deteccion visual. El sistema responde con la lista de productos que se acaban de registrar, confirmando que el pipeline de vision actualizo correctamente la base de datos.
-
----
-
-**Captura 23 — Receta generada con los productos detectados**
-
-<!-- ![WhatsApp receta prueba final](./assets/prueba_final_receta.jpg) -->
-
-> El usuario solicita una receta con lo que tiene disponible. El Recipe Agent genera una propuesta usando exclusivamente ingredientes del inventario recien actualizado por vision. La respuesta incluye nombre de la receta, ingredientes con cantidades, pasos de preparacion, informacion nutrimental y tiempo estimado.
-
----
-
-**Captura 24 — Lista de compras generada tras el analisis del inventario**
-
-<!-- ![WhatsApp lista compras prueba final](./assets/prueba_final_compras.jpg) -->
-
-> El usuario pide su lista de compras. El Shopping Agent analiza el inventario actual, detecta productos agotados y con stock bajo, evalua el balance nutricional de lo disponible y genera recomendaciones priorizadas. La lista indica que comprar primero y por que.
 
 ---
 
