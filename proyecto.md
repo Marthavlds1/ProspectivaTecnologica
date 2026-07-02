@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Portafolio — Alacena Inteligente 
+title: Portafolio — Alacena Inteligente
 nav_order: 10
 ---
+
 # Alacena Inteligente
 
 **A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management**
@@ -10,7 +11,7 @@ nav_order: 10
 Proyecto final — Prospectiva de IA — Ingenieria Mecatronica y Sistemas Ciberfisicos
 Universidad Iberoamericana Ciudad de Mexico — 2026
 
- Martha Valdes · Renata Badillo · Marco Calixto
+Martha Valdes · Renata Badillo · Marco Calixto
 
 ---
 
@@ -25,16 +26,15 @@ Universidad Iberoamericana Ciudad de Mexico — 2026
 7. [Etapa 4 — Agentes especializados](#7-etapa-4--agentes-especializados)
 8. [Etapa 5 — Integracion con WhatsApp](#8-etapa-5--integracion-con-whatsapp)
 9. [Etapa 6 — Dashboard de observabilidad](#9-etapa-6--dashboard-de-observabilidad)
-10. [Prueba final del sistema completo](#10-prueba-final-del-sistema-completo)
-11. [Resultados y metricas](#11-resultados-y-metricas)
-12. [Stack tecnologico](#12-stack-tecnologico)
-13. [Instalacion](#13-instalacion)
-14. [Descargas](#14-descargas)
-15. [Estructura del proyecto](#15-estructura-del-proyecto)
+10. [Resultados y metricas](#10-resultados-y-metricas)
+11. [Stack tecnologico](#11-stack-tecnologico)
+12. [Instalacion](#12-instalacion)
+13. [Descargas](#13-descargas)
+14. [Estructura del proyecto](#14-estructura-del-proyecto)
 
 ---
 
-## 1. Descripción General
+## 1. Descripcion general
 
 Alacena Inteligente es un sistema multi-agente para la gestion automatizada de inventario alimentario domestico. El sistema detecta productos en una despensa mediante una camara ESP32-CAM, los registra en una base de datos, y permite al usuario consultar su inventario, generar recetas, obtener listas de compras, calcular su perfil nutricional y recibir planes de alimentacion — todo mediante lenguaje natural a traves de WhatsApp.
 
@@ -53,8 +53,7 @@ La arquitectura incorpora ademas una capa de observabilidad que registra latenci
 | WhatsApp | Interfaz conversacional via whatsapp-web.js |
 | Observabilidad | Dashboard con metricas en tiempo real de toda la arquitectura |
 
-El articulo tecnico completo del proyecto esta disponible en la seccion de [Descargas](#14-descargas).
-
+El articulo tecnico completo del proyecto esta disponible en la seccion de [Descargas](#13-descargas).
 
 ---
 
@@ -66,16 +65,16 @@ Las soluciones actuales — aplicaciones de registro manual, codigos de barras, 
 
 Este proyecto propone una alternativa donde la alacena se actualiza sola mediante vision por computadora, y el usuario puede interactuar con ella en lenguaje natural desde la aplicacion de mensajeria que ya usa todos los dias.
 
-Objetivos - Desarrollar un asistente nutrimental inteligente que permita:
+**Objetivos — Desarrollar un asistente nutrimental inteligente que permita:**
 
-- Gestionar inventario de alimentos.
-- Generar recetas personalizadas.
-- Crear listas de compras.
-- Generar planes alimenticios.
-- Interactuar mediante WhatsApp.
-- Utilizar modelos de lenguaje (LLM) ejecutados localmente.
-- Reconocer productos automáticamente mediante visión computacional (VLM)
-- Automatizar la gestión de una alacena doméstica.
+- Gestionar inventario de alimentos
+- Generar recetas personalizadas
+- Crear listas de compras
+- Generar planes alimenticios
+- Interactuar mediante WhatsApp
+- Utilizar modelos de lenguaje (LLM) ejecutados localmente
+- Reconocer productos automaticamente mediante vision computacional (VLM)
+- Automatizar la gestion de una alacena domestica
 
 ---
 
@@ -170,7 +169,7 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 | Cereal ChocoKrispis | Caja cafe con letras amarillas |
 | Refresco Fanta | Lata naranja con logo de letras verdes |
 
-### Capturas — Hardware y deteccion visual
+### Capturas
 
 ---
 
@@ -183,7 +182,8 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 ---
 
 **Alacena con los productos del catalogo**
-![Alacena con productos](assets/img/pf/alacena.png) 
+
+![Alacena con productos](assets/img/pf/alacena.png)
 
 > Vista de la alacena fisica utilizada para las pruebas, con los 26 productos del catalogo dispuestos de manera visible. Esta es la escena que la ESP32-CAM captura para que Gemini Vision realice la deteccion.
 
@@ -193,7 +193,7 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 
 ![Imagen latest.jpg capturada por ESP32-CAM](assets/img/lastest.png)
 
-> Imagen real tomada por la ESP32-CAM y guardada como `latest.png` en el servidor. Se puede observar la diferencia de resolucion respecto a una camara convencional, lo que justifica el uso de descripciones visuales especificas en el prompt de Gemini.
+> Imagen real tomada por la ESP32-CAM y guardada como `latest.jpg` en el servidor. Se puede observar la diferencia de resolucion respecto a una camara convencional, lo que justifica el uso de descripciones visuales especificas en el prompt de Gemini.
 
 ---
 
@@ -286,7 +286,7 @@ CREATE TABLE intent_tests (
 );
 ```
 
-### Capturas — Backend y base de datos
+### Capturas
 
 ---
 
@@ -319,8 +319,8 @@ Para cada mensaje del usuario, el orquestador ejecuta la siguiente secuencia int
 3. Extraccion de entidades (productos, cantidades, nombres)
 4. Estimacion de nivel de confianza
 5. Generacion del JSON estructurado
-6. El backend valida el esquema
-7. Seleccion y ejecucion del agente
+6. Validacion del esquema por el backend
+7. Seleccion y ejecucion del agente correspondiente
 
 Si la validacion del esquema falla, el backend activa un fallback basado en reglas de palabras clave para mantener la disponibilidad del sistema.
 
@@ -362,7 +362,7 @@ Si la validacion del esquema falla, el backend activa un fallback basado en regl
 }
 ```
 
-### Capturas — Orquestador LLM
+### Capturas
 
 ---
 
@@ -417,7 +417,7 @@ Analiza el inventario actual y genera recomendaciones de compra priorizadas en t
 
 Genera planes de alimentacion semanales combinando tres fuentes de informacion: disponibilidad en el inventario, requisitos nutricionales del perfil del usuario y objetivo alimentario. Maximiza el uso de ingredientes existentes mientras mantiene la consistencia nutricional a lo largo de la semana.
 
-### Capturas — Agentes especializados
+### Capturas
 
 ---
 
@@ -463,7 +463,7 @@ La eleccion de WhatsApp como interfaz principal elimina la necesidad de desarrol
 
 Una consideracion tecnica importante: el procesamiento de mensajes comienza solo despues de que el cliente esta completamente inicializado, para evitar que mensajes historicos sean procesados multiples veces tras una reconexion.
 
-### Capturas — Integracion con WhatsApp
+### Capturas
 
 ---
 
@@ -475,17 +475,11 @@ Una consideracion tecnica importante: el procesamiento de mensajes comienza solo
 
 ---
 
-**Registro de producto por voz o texto natural**
+**Registro de producto en lenguaje natural**
 
 ![Agregar producto WhatsApp](assets/img/pf/agregapro.png)
 
 > Conversacion donde el usuario dice en lenguaje natural que compro un producto. El orquestador detecta la intencion `add_inventory`, extrae el nombre y la cantidad, y el Inventory Agent actualiza la base de datos. El sistema confirma la operacion al usuario.
-
----
-
-**Alerta de productos proximos a caducar**
-
-> Respuesta del sistema ante la pregunta de que productos deberian consumirse pronto. El sistema identifica productos perecederos en el inventario (comida preparada: 3 dias, frutas y verduras: 5 dias) y genera una alerta con recomendaciones de consumo.
 
 ---
 
@@ -515,11 +509,11 @@ Se desarrollo un dashboard administrativo web que transforma el monitoreo del si
 
 El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan suites de pruebas predefinidas para medir el desempeno del orquestador bajo condiciones repetibles.
 
-### Capturas — Dashboard de observabilidad
+### Capturas
 
 ---
 
-**Captura 16 — Vista general del dashboard**
+**Vista general del dashboard**
 
 ![Dashboard vista general](assets/img/pf/dashboard_general.png)
 
@@ -527,7 +521,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 ---
 
-**Captura 17 — Metricas de latencia del LLM**
+**Metricas de latencia del LLM**
 
 ![Dashboard metricas LLM](assets/img/pf/dashboard_llm.png)
 
@@ -535,7 +529,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 ---
 
-**Captura 18 — Precision de clasificacion de intenciones**
+**Precision de clasificacion de intenciones**
 
 ![Dashboard clasificacion intenciones](assets/img/pf/intenciones.png)
 
@@ -543,7 +537,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 ---
 
-**Captura 19 — Historial de conversaciones con trazas**
+**Historial de conversaciones con trazas**
 
 ![Dashboard historial conversaciones](assets/img/pf/historialconversaciones.png)
 
@@ -551,56 +545,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 ---
 
-## 10. Prueba final del sistema completo
-
-Esta seccion documenta una prueba de extremo a extremo del sistema completo, desde la captura de imagen hasta la respuesta final al usuario.
-
-### Descripcion de la prueba
-
-La prueba cubre el flujo completo de la arquitectura en una sola sesion:
-
-1. La ESP32-CAM captura una imagen de la alacena con varios productos del catalogo
-2. El sistema detecta los productos mediante Gemini Vision y actualiza el inventario
-3. El usuario consulta su inventario por WhatsApp
-4. El usuario solicita una receta con lo que tiene disponible
-5. El usuario pide su lista de compras
-6. El dashboard muestra las metricas de toda la sesion
-
----
-
-**Captura 20 — Imagen capturada por ESP32-CAM al inicio de la prueba**
-
-<!-- ![Captura ESP32-CAM prueba final](./assets/prueba_final_captura.jpg) -->
-
-> Imagen tomada por la ESP32-CAM al inicio de la prueba final. En ella se pueden distinguir varios de los 26 productos del catalogo. Esta imagen es la entrada al pipeline de vision: se guarda como `latest.jpg` y se envia a Gemini Vision para deteccion.
-
----
-
-**Captura 21 — Resultado de deteccion y actualizacion del inventario**
-
-<!-- ![Resultado deteccion prueba final](./assets/prueba_final_deteccion.png) -->
-
-> Respuesta del endpoint `/vision/detect` mostrando los productos identificados por Gemini Vision con sus niveles de confianza. Los productos con confianza mayor o igual a 0.5 se insertan o actualizan en la tabla `inventory` de SQLite. Se puede observar que el sistema descarto detecciones de baja confianza.
-
----
-
-**Captura 22 — Consulta de inventario por WhatsApp tras la deteccion**
-
-<!-- ![WhatsApp inventario actualizado prueba final](./assets/prueba_final_inventario.jpg) -->
-
-> Conversacion de WhatsApp donde el usuario consulta el inventario inmediatamente despues de la deteccion visual. El sistema responde con la lista de productos que se acaban de registrar, confirmando que el pipeline de vision actualizo correctamente la base de datos.
-
----
-
-**Captura 25 — Dashboard con metricas de la sesion completa**
-
-<!-- ![Dashboard metricas sesion prueba final](./assets/prueba_final_dashboard.png) -->
-
-> Vista del dashboard al finalizar la prueba, mostrando las metricas acumuladas de la sesion: numero de interacciones procesadas, latencia promedio, tokens consumidos en total, confianza promedio del orquestador, tasa de JSON valido y trazas de ejecucion de cada agente invocado. Esta vista permite evaluar el comportamiento de la arquitectura completa en condiciones reales de uso.
-
----
-
-## 11. Resultados y metricas
+## 10. Resultados y metricas
 
 Los resultados se obtuvieron mediante dos estrategias de evaluacion: experimentos controlados con un dataset predefinido de mensajes representativos, y evaluacion con usuarios reales a traves de WhatsApp con lenguaje coloquial y expresiones espontaneas.
 
@@ -642,7 +587,7 @@ El backend contribuye solo 0.003 segundos del tiempo total de respuesta. El cost
 
 ---
 
-## 12. Stack tecnologico
+## 11. Stack tecnologico
 
 | Componente | Tecnologia | Version |
 |---|---|---|
@@ -660,7 +605,7 @@ El backend contribuye solo 0.003 segundos del tiempo total de respuesta. El cost
 
 ---
 
-## 13. Instalacion
+## 12. Instalacion
 
 ### Requisitos previos
 
@@ -707,23 +652,23 @@ python -m uvicorn app.main:app --reload --port 8000
 ### Verificacion
 
 - Documentacion interactiva de la API: http://localhost:8000/docs
-- Frontend administrativo: abrir frontend/admin.html con Live Server en VS Code
+- Frontend administrativo: abrir `frontend/admin.html` con Live Server en VS Code
 - Endpoint de salud: http://localhost:8000/
 
 ---
 
-## 14. Descargas
+## 13. Descargas
 
 | Recurso | Descripcion |
 |---|---|
 | [Repositorio en GitHub](https://github.com/Marthavlds1/ProspectivaTecnologica) | Codigo fuente completo del proyecto |
-| [Articulo tecnico IEEE (PDF)](./ReporteProspectivaTecnologica.pdf) | Reporte completo: A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
+| [Articulo tecnico IEEE (PDF)](./ReporteProspectivaTecnologica.pdf) | A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
 | [Descargar ZIP del proyecto](https://github.com/Marthavlds1/ProspectivaTecnologica/archive/refs/heads/main.zip) | Descarga directa de todo el repositorio en formato ZIP |
 | [.env.example](./backend/app/vision/.env.example) | Plantilla de variables de entorno necesarias para ejecutar el sistema |
 
 ---
 
-## 15. Estructura del proyecto
+## 14. Estructura del proyecto
 
 ```
 ProspectivaTecnologica/

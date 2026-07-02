@@ -1,8 +1,4 @@
----
-layout: default
-title: Portafolio — Proyecto Final  
-nav_order: 9
----
+
 
 # A Multi-Agent Architecture Based on Vision and Language Models for Intelligent
 
