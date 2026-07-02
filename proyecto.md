@@ -437,17 +437,17 @@ Genera planes de alimentacion semanales combinando tres fuentes de informacion: 
 
 ---
 
-**Captura 11 — Respuesta del Nutrition Agent en WhatsApp**
+**Respuesta del Nutrition Agent en WhatsApp**
 
-<!-- ![Calculo nutricional en WhatsApp](./assets/whatsapp_nutricion.jpg) -->
+![Calculo nutricional en WhatsApp](assets/img/pf/calculonutricional.png)
 
 > Mensaje de WhatsApp con el calculo del perfil nutricional personalizado del usuario: TMB, GET, calorias objetivo y distribucion de macronutrientes. Los valores se calculan con base en el perfil registrado (edad, peso, altura, nivel de actividad y objetivo alimentario).
 
 ---
 
-**Captura 12 — Plan semanal generado por el Meal Planning Agent**
+**Plan semanal generado por el Meal Planning Agent**
 
-<!-- ![Plan semanal en WhatsApp](./assets/whatsapp_plan_semanal.jpg) -->
+![Plan semanal en WhatsApp](assets/img/pf/plansemanal.png)
 
 > Mensaje de WhatsApp con el plan de alimentacion semanal generado combinando el inventario disponible y el perfil nutricional del usuario. El plan distribuye comidas a lo largo de la semana priorizando ingredientes ya existentes en la alacena.
 
@@ -467,23 +467,23 @@ Una consideracion tecnica importante: el procesamiento de mensajes comienza solo
 
 ---
 
-**Captura 13 — Consulta de inventario por WhatsApp**
+**Consulta de inventario por WhatsApp**
 
-<!-- ![Consulta inventario WhatsApp](./assets/whatsapp_inventario.jpg) -->
+![Consulta inventario WhatsApp](assets/img/pf/inventarioAct.png)
 
 > Conversacion de WhatsApp donde el usuario pregunta que tiene en su alacena. El sistema detecta la intencion `inventory`, consulta la tabla `inventory` en SQLite y responde con la lista de productos disponibles con sus cantidades.
 
 ---
 
-**Captura 14 — Registro de producto por voz o texto natural**
+**Registro de producto por voz o texto natural**
 
-<!-- ![Agregar producto WhatsApp](./assets/whatsapp_agregar.jpg) -->
+![Agregar producto WhatsApp](assets/img/pf/agregapro.png)
 
 > Conversacion donde el usuario dice en lenguaje natural que compro un producto. El orquestador detecta la intencion `add_inventory`, extrae el nombre y la cantidad, y el Inventory Agent actualiza la base de datos. El sistema confirma la operacion al usuario.
 
 ---
 
-**Captura 15 — Alerta de productos proximos a caducar**
+**Alerta de productos proximos a caducar**
 
 > Respuesta del sistema ante la pregunta de que productos deberian consumirse pronto. El sistema identifica productos perecederos en el inventario (comida preparada: 3 dias, frutas y verduras: 5 dias) y genera una alerta con recomendaciones de consumo.
 
@@ -521,7 +521,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 **Captura 16 — Vista general del dashboard**
 
-<!-- ![Dashboard vista general](./assets/dashboard_general.png) -->
+![Dashboard vista general](assets/img/pf/dashboard_general.png)
 
 > Vista principal del dashboard administrativo mostrando el resumen operacional del sistema: total de mensajes procesados, latencia promedio, tokens consumidos, tasa de exito de arquitectura y tasa de validacion de JSON. Esta vista permite evaluar el estado general del sistema de un vistazo.
 
@@ -529,7 +529,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 **Captura 17 — Metricas de latencia del LLM**
 
-<!-- ![Dashboard metricas LLM](./assets/dashboard_llm.png) -->
+![Dashboard metricas LLM](assets/img/pf/dashboard_llm.png)
 
 > Panel de metricas del modelo de lenguaje mostrando la latencia de inferencia por sesion, consumo de tokens por llamada y velocidad de generacion (tokens por segundo). Se puede observar la latencia promedio de 27.15 segundos correspondiente a inferencia local en hardware de consumo con Ollama.
 
@@ -537,7 +537,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 **Captura 18 — Precision de clasificacion de intenciones**
 
-<!-- ![Dashboard clasificacion intenciones](./assets/dashboard_intenciones.png) -->
+![Dashboard clasificacion intenciones](assets/img/pf/intenciones.png)
 
 > Panel de evaluacion del orquestador mostrando los resultados de las pruebas controladas de clasificacion de intenciones. La tabla muestra el mensaje enviado, la intencion esperada, la intencion detectada y si la clasificacion fue correcta. Los resultados obtenidos fueron 100% de accuracy en el dataset de prueba.
 
@@ -545,7 +545,7 @@ El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan s
 
 **Captura 19 — Historial de conversaciones con trazas**
 
-<!-- ![Dashboard historial conversaciones](./assets/dashboard_historial.png) -->
+![Dashboard historial conversaciones](assets/img/pf/historialconversaciones.png)
 
 > Vista del historial de conversaciones en el dashboard, mostrando cada interaccion con su intencion detectada, confianza del orquestador, validez del JSON, latencia y estado de ejecucion. Esta informacion permite depurar el comportamiento del sistema y analizar patrones de uso.
 
