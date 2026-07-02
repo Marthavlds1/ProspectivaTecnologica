@@ -734,7 +734,50 @@ ProspectivaTecnologica/
 ```
 
 ---
+## Referencias
 
+[1] Food and Agriculture Organization of the United Nations, *The State of Food and Agriculture 2019: Moving Forward on Food Loss and Waste Reduction*. FAO, 2019.
+
+[2] United Nations Environment Programme, "Food waste index report 2024," 2024.
+
+[3] OpenAI, "Gpt-4 technical report," arXiv preprint arXiv:2303.08774, 2023.
+
+[4] A. Dubey et al., "The llama 3 herd of models," arXiv preprint arXiv:2407.21783, 2024.
+
+[5] G. Team, "Gemma: Open models based on gemini research and technology," arXiv preprint arXiv:2403.08295, 2024.
+
+[6] A. Krizhevsky, I. Sutskever, and G. Hinton, "Imagenet classification with deep convolutional neural networks," in *Advances in Neural Information Processing Systems*, 2012.
+
+[7] W. Min et al., "A survey on food computing," *ACM Computing Surveys*, vol. 52, no. 5, pp. 1–36, 2019.
+
+[8] A. Radford et al., "Learning transferable visual models from natural language supervision," *International Conference on Machine Learning*, 2021.
+
+[9] J. Li et al., "Blip-2: Bootstrapping language-image pre-training," *International Conference on Machine Learning*, 2023.
+
+[10] M. Wooldridge, *An Introduction to MultiAgent Systems*, 2nd ed. John Wiley & Sons, 2009.
+
+[11] Q. Wu et al., "Autogen: Enabling next-gen llm applications via multiagent conversation," arXiv preprint arXiv:2308.08155, 2023.
+
+[12] CrewAI, "Crewai documentation," 2025. https://docs.crewai.com
+
+[13] LangChain, "Langgraph documentation," 2025. https://langchainai.github.io/langgraph
+
+[14] Microsoft, "Semantic kernel," 2025. https://learn.microsoft.com/semantic-kernel
+
+[15] M. Treveil et al., *Introducing MLOps*. O'Reilly Media, 2020.
+
+[16] A. B. Arrieta et al., "Explainable artificial intelligence (xai): Concepts, taxonomies, opportunities and challenges toward responsible ai," *Information Fusion*, vol. 58, pp. 82–115, 2020.
+
+[17] FastAPI, "Fastapi documentation," 2025. https://fastapi.tiangolo.com
+
+[18] Ollama, "Ollama documentation," 2025. https://ollama.com
+
+[19] SQLite, "Sqlite documentation," 2025. https://sqlite.org
+
+[20] Google, "Gemini api documentation," 2025. https://ai.google.dev
+
+[21] W. Web.js, "Whatsapp web.js documentation," 2025. https://wwebjs.dev
+---
 Proyecto desarrollado como parte del curso de Prospectiva de IA
 Ingenieria Mecatronica y Sistemas Ciberfisicos
 Universidad Iberoamericana Ciudad de Mexico — 2026
