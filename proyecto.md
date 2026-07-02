@@ -463,7 +463,6 @@ La eleccion de WhatsApp como interfaz principal elimina la necesidad de desarrol
 
 Una consideracion tecnica importante: el procesamiento de mensajes comienza solo despues de que el cliente esta completamente inicializado, para evitar que mensajes historicos sean procesados multiples veces tras una reconexion.
 
-### Capturas
 
 ---
 
@@ -509,7 +508,6 @@ Se desarrollo un dashboard administrativo web que transforma el monitoreo del si
 
 El dashboard incluye ademas herramientas de evaluacion controlada que ejecutan suites de pruebas predefinidas para medir el desempeno del orquestador bajo condiciones repetibles.
 
-### Capturas
 
 ---
 
