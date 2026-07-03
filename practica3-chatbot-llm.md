@@ -95,7 +95,6 @@ POST /services/whatsapp/stop  ← Detiene el bot
 El frontend es un archivo HTML/CSS/JS de una sola página dividido en tres columnas:
 
 **Columna izquierda — Configuración del modelo:**
-- Selector de modelo (llama3.2:3b, gemma3:4b, qwen2.5:7b, mistral:7b, phi4-mini, tinyllama)
 - Sliders para temperature, top-p y repeat penalty
 - Campo numérico para tokens máximos
 - Selector de contexto (2048, 4096, 8192)
@@ -204,7 +203,13 @@ El backend permite validar parámetros antes de enviarlos a Ollama, manejar erro
 El chatbot ya está extendido en el proyecto de alacena inteligente. El siguiente paso es conectar el módulo de visión artificial (Teachable Machine) para que el inventario se actualice automáticamente cuando la cámara detecte nuevos productos, eliminando la necesidad de que el usuario los reporte manualmente por WhatsApp.
 
 ---
+## 9. Conclusión
+La implementación del chatbot permitió comprender la integración completa entre un frontend web, un backend desarrollado con FastAPI y un modelo de lenguaje ejecutándose localmente mediante Ollama. Además de cumplir con los objetivos de la práctica, el sistema fue adaptado al proyecto de la alacena inteligente, incorporando funciones adicionales como el historial de conversaciones de WhatsApp, el monitoreo de servicios y la configuración dinámica del modelo desde la interfaz de administración.
 
+Como parte de la validación del sistema, se realizaron aproximadamente 100 iteraciones de prueba, evaluando distintos tipos de consultas, parámetros de generación y escenarios de funcionamiento. Estas pruebas permitieron verificar la estabilidad de la comunicación entre el frontend, el backend y Ollama, además de identificar configuraciones que ofrecían un mejor equilibrio entre calidad de respuesta y tiempo de ejecución. Gracias a este proceso fue posible seleccionar la configuración final del modelo (temperature = 0.4, top_p = 0.9, num_predict = 160, num_ctx = 4096 y repeat_penalty = 1.1), obteniendo respuestas consistentes y un comportamiento estable.
+
+En cuanto a los parámetros del modelo, se observó que valores moderados (temperature = 0.4, top_p = 0.9 y repeat_penalty = 1.1) ofrecen respuestas consistentes y adecuadas para aplicaciones prácticas. Configuraciones con temperaturas muy altas o un número excesivo de tokens (num_predict) incrementan considerablemente el tiempo de respuesta y pueden producir resultados menos coherentes.
+---
 ## Referencias
 
 - Ollama. (s. f.). *Chat API*. [https://docs.ollama.com/api/chat](https://docs.ollama.com/api/chat)

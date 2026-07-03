@@ -204,6 +204,32 @@ El sistema solo acepta detecciones con nivel de confianza mayor o igual a 0.5. S
 > Salida del endpoint `/vision/detect` mostrando el JSON generado por Gemini Vision con los productos detectados, sus niveles de confianza y cantidades. Solo los productos con confianza mayor o igual a 0.5 se insertan en el inventario.
 
 ---
+## Limitaciones de la captura de imágenes y su impacto en el sistema de visión artificial
+
+Durante el desarrollo del sistema se identificó una limitación importante en el proceso de adquisición y transmisión de imágenes desde la ESP32-CAM hacia el backend. Inicialmente, las imágenes eran enviadas a través de Internet para ser procesadas por el modelo de visión (VLM). Sin embargo, el tamaño de las imágenes provocaba tiempos elevados de transferencia, ocasionando interrupciones en la comunicación, pérdidas de conexión y errores en el backend que impedían completar correctamente el flujo de procesamiento.
+
+Como medida de mitigación, se redujo la resolución y la calidad de las imágenes capturadas por la ESP32-CAM. Esta modificación permitió disminuir la latencia de transmisión y mejorar la estabilidad de la comunicación entre el dispositivo y el backend. No obstante, esta solución introdujo un nuevo problema: la reducción de calidad afectó directamente el desempeño del modelo de visión artificial.
+
+Al recibir imágenes con menor nivel de detalle, el VLM presentó dificultades para identificar correctamente algunos productos de la alacena. En diversos casos clasificaba un producto como otro diferente, incluso asignándole una probabilidad de confianza elevada, lo que incrementaba la posibilidad de registrar información incorrecta en el inventario.
+
+Para compensar esta limitación se realizaron mejoras en el *prompt* del modelo de visión. En lugar de permitir una clasificación completamente abierta, se restringió el reconocimiento a un catálogo predefinido de productos compatibles con el sistema. Además, se proporcionó una descripción textual de cada producto como información de apoyo (*context grounding*), con el objetivo de reducir la ambigüedad durante la clasificación y mejorar la consistencia de las respuestas generadas por el modelo.
+
+Como trabajo futuro, se propone sustituir la ESP32-CAM por un dispositivo capaz de capturar imágenes de mayor resolución, como una cámara conectada a una Raspberry Pi u otra plataforma de mayor capacidad de procesamiento. Asimismo, se recomienda que la comunicación entre la cámara y el backend se realice mediante una red local en lugar de depender de servicios en la nube, reduciendo significativamente la latencia y eliminando interrupciones ocasionadas por la conexión a Internet. Esto permitiría preservar una mayor calidad de imagen y, en consecuencia, incrementar la precisión del modelo de visión artificial y la fidelidad del inventario generado automáticamente.
+
+## Conflicto entre la salida del VLM y la gestión del inventario mediante el LLM
+
+La incorporación de un catálogo predefinido de productos en el *prompt* del VLM mejoró la precisión del reconocimiento visual; sin embargo, introdujo una nueva limitación dentro del flujo del sistema.
+
+El backend utiliza el nombre del producto detectado por el VLM para actualizar la base de datos del inventario, ya sea agregando nuevas unidades o descontando productos existentes. Para garantizar la integridad de la información, se implementó una validación que compara el nombre devuelto por el VLM con los nombres registrados en la base de datos.
+
+El inconveniente surgió cuando el usuario registraba productos que no pertenecían al catálogo definido para el modelo de visión. En estos casos, el VLM no era capaz de identificarlos correctamente o simplemente no podía devolver un nombre válido dentro del catálogo establecido. Como consecuencia, la validación del backend fallaba, provocando errores durante la actualización del inventario e interrumpiendo el flujo completo del sistema.
+
+Este problema evidencia la dependencia existente entre el modelo de visión artificial y el modelo de lenguaje encargado de administrar el inventario. Mientras el VLM requiere un catálogo limitado para mejorar su precisión con imágenes de baja calidad, el LLM debe operar sobre una base de datos dinámica que puede contener nuevos productos agregados por los usuarios en cualquier momento.
+
+Como propuesta de mejora, una mayor calidad de las imágenes permitiría aumentar la confiabilidad del reconocimiento visual y eliminar la necesidad de restringir excesivamente el catálogo de productos. Adicionalmente, se plantea incorporar un modelo de detección de objetos, como YOLO, antes del procesamiento realizado por el VLM. En este esquema, YOLO identificaría y aislaría cada producto presente en la imagen, generando regiones individuales de interés. Posteriormente, el VLM analizaría únicamente cada objeto detectado, en lugar de interpretar toda la escena simultáneamente, lo que reduciría la complejidad del problema y mejoraría la precisión del reconocimiento.
+
+Una vez obtenida una lista confiable de productos detectados, el propio VLM o un proceso adicional basado en LLM podría comparar dichos resultados con los registros existentes en la base de datos y estandarizar automáticamente la nomenclatura de los productos. De esta forma, diferentes formas de referirse al mismo artículo, por ejemplo *"Coca Cola 600 ml"*, *"Refresco Coca"* o *"Coca-Cola"*, podrían asociarse a un único registro dentro del inventario, evitando duplicados y manteniendo la consistencia de la información almacenada.
+--
 
 ## 5. Etapa 2 — Backend y base de datos
 
@@ -665,8 +691,29 @@ python -m uvicorn app.main:app --reload --port 8000
 | [.env.example](./backend/app/vision/.env.example) | Plantilla de variables de entorno necesarias para ejecutar el sistema |
 
 ---
+Sí, para un proyecto de este nivel conviene que la conclusión no solo hable del sistema en general, sino también de lo que aprendieron sobre el **LLM**, el **VLM**, la arquitectura **multiagente** y las decisiones de diseño. Aquí tienes una versión más completa y realista:
 
-## 14. Estructura del proyecto
+---
+
+### Conclusión
+
+El desarrollo de **Alacena Inteligente** permitió comprobar que la integración de modelos de lenguaje (LLM), modelos de visión (VLM), agentes especializados y dispositivos IoT constituye una alternativa viable para automatizar la gestión de inventarios alimentarios domésticos. A diferencia de un chatbot convencional, la arquitectura propuesta distribuye las responsabilidades entre distintos componentes, logrando que cada uno resuelva un problema específico y reduciendo la complejidad del sistema.
+
+Uno de los principales aprendizajes fue el papel del **LLM** como orquestador. En lugar de generar directamente las respuestas al usuario, el modelo se utilizó para interpretar el lenguaje natural, clasificar la intención de cada solicitud y generar un JSON estructurado que posteriormente fue validado por el backend antes de ser enviado al agente correspondiente. Este enfoque permitió separar la comprensión del lenguaje de la lógica de negocio, haciendo que las operaciones sobre el inventario fueran deterministas y más fáciles de mantener. Durante las **100 iteraciones de pruebas** realizadas en el sistema ciberfísico, el orquestador mantuvo una correcta clasificación de intenciones y produjo respuestas con un esquema válido, demostrando que un LLM puede utilizarse como un componente de control y no únicamente como un generador de texto.
+
+Respecto al **VLM**, el proyecto evidenció tanto su potencial como sus limitaciones. El modelo fue capaz de reconocer productos alimenticios a partir de imágenes capturadas por la ESP32-CAM; sin embargo, la baja resolución de la cámara y las condiciones de iluminación redujeron la precisión del reconocimiento. Para compensar esta situación fue necesario diseñar un catálogo predefinido de productos acompañado de descripciones visuales detalladas (*prompt grounding*), lo que incrementó considerablemente la precisión de las detecciones. No obstante, esta solución también limitó la capacidad del sistema para identificar productos nuevos, mostrando que el desempeño de un VLM depende en gran medida de la calidad de los datos de entrada y del contexto proporcionado durante la inferencia.
+
+La arquitectura **multiagente** también demostró ser una decisión adecuada. La separación entre los agentes de inventario, recetas, nutrición, lista de compras y planeación semanal permitió que cada módulo fuera independiente y especializado, facilitando el mantenimiento, las pruebas y la posibilidad de incorporar nuevas funcionalidades sin afectar el resto del sistema. Asimismo, la incorporación de una capa de observabilidad permitió monitorear métricas como latencia, consumo de tokens, validación de JSON y desempeño del orquestador, proporcionando información útil para evaluar objetivamente el comportamiento de la arquitectura.
+
+Durante el desarrollo también se identificaron diversas áreas de oportunidad. La latencia observada estuvo dominada principalmente por la inferencia del LLM ejecutado localmente mediante Ollama, mientras que el backend aportó una sobrecarga mínima al tiempo total de respuesta. Asimismo, el uso de la ESP32-CAM representó una limitación importante debido a la calidad de las imágenes y a los tiempos de transmisión cuando la comunicación dependía de Internet. Estas experiencias permitieron concluir que el rendimiento global del sistema no depende únicamente de la inteligencia artificial, sino también del hardware, la infraestructura de comunicación y la integración entre todos los componentes.
+
+Como trabajo futuro, se propone incorporar cámaras de mayor resolución, utilizar comunicación completamente local para reducir la latencia, integrar modelos de detección de objetos como YOLO antes del procesamiento mediante el VLM y desarrollar mecanismos automáticos de normalización de nombres de productos para mantener la consistencia del inventario. Estas mejoras permitirían incrementar la robustez del sistema y acercarlo a un entorno de uso real.
+
+En términos generales, el proyecto cumplió los objetivos planteados y demostró que una arquitectura basada en **LLM, VLM y agentes especializados** puede ofrecer una solución funcional para la administración inteligente de alimentos. Más allá de los resultados obtenidos, el desarrollo permitió comprender que el éxito de este tipo de sistemas depende del equilibrio entre los modelos de inteligencia artificial, la calidad de los datos de entrada, el diseño de la arquitectura y la integración eficiente entre software y hardware. Estos conocimientos constituyen una base sólida para el desarrollo de aplicaciones inteligentes más complejas dentro del ámbito de los sistemas ciberfísicos.
+
+---
+
+## Estructura del proyecto
 
 ```
 ProspectivaTecnologica/
