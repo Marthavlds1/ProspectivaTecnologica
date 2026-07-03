@@ -14,8 +14,13 @@ Por:
 
 
 Contenido:
-- [Práctica 1- Instalación y comparación de modelos LLM con Ollama](practica1-llm-ollama.md)
-- [2. Estructura del repositorio](02-estructura-del-repo.md)
-- [3. Escribir en Markdown](03-markdown.md)
-- [4. Personalización visual](04-estilos.md)
+## Contenido
 
+- [Práctica 1 – Instalación y comparación de modelos LLM con Ollama](practica1-llm-ollama.md)
+- [Práctica 2 – Selección de plataforma y benchmark de modelos LLM](practica2-benchmark-llm.md)
+- [Práctica 3 – ](practica3-benchmark-llm.md)
+- [Práctica 4 – ](practica4-copilotos-llm.md)
+- [Práctica 5 – ](reporte-practica5.md)
+- [Práctica 6 – ](reporte-practica6.md)
+- [Proyecto Final – Alacena Inteligente](proyecto.md)
+- [Presentaciones](presentaciones.md)
