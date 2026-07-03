@@ -30,7 +30,8 @@ Martha Valdes · Renata Badillo · Marco Calixto
 11. [Stack tecnologico](#11-stack-tecnologico)
 12. [Instalacion](#12-instalacion)
 13. [Descargas](#13-descargas)
-14. [Estructura del proyecto](#14-estructura-del-proyecto)
+14. [Conclusón](#14-conclusion)
+15. [Estructura del proyecto](#15-estructura-del-proyecto)
 
 ---
 
@@ -687,7 +688,7 @@ python -m uvicorn app.main:app --reload --port 8000
 |---|---|
 | [Repositorio en GitHub](https://github.com/Marthavlds1/ProspectivaTecnologica) | Codigo fuente completo del proyecto |
 | [Articulo tecnico IEEE (PDF)](./ReporteProspectivaTecnologica.pdf) | A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
-| [Descargar ZIP del proyecto](https://github.com/Marthavlds1/ProspectivaTecnologica/archive/refs/heads/main.zip) | Descarga directa de todo el repositorio en formato ZIP |
+| [Descargar ZIP del proyecto](https://github.com/RenBadillo/ProspectivaTecnologica) | Descarga directa de todo el repositorio en formato ZIP |
 | [.env.example](./backend/app/vision/.env.example) | Plantilla de variables de entorno necesarias para ejecutar el sistema |
 
 ---
@@ -695,7 +696,7 @@ Sí, para un proyecto de este nivel conviene que la conclusión no solo hable de
 
 ---
 
-### Conclusión
+### 14. Conclusión
 
 El desarrollo de **Alacena Inteligente** permitió comprobar que la integración de modelos de lenguaje (LLM), modelos de visión (VLM), agentes especializados y dispositivos IoT constituye una alternativa viable para automatizar la gestión de inventarios alimentarios domésticos. A diferencia de un chatbot convencional, la arquitectura propuesta distribuye las responsabilidades entre distintos componentes, logrando que cada uno resuelva un problema específico y reduciendo la complejidad del sistema.
 
@@ -713,7 +714,7 @@ En términos generales, el proyecto cumplió los objetivos planteados y demostr�
 
 ---
 
-## Estructura del proyecto
+## 15. Estructura del proyecto
 
 ```
 ProspectivaTecnologica/
@@ -822,6 +823,7 @@ ProspectivaTecnologica/
 [20] Google, "Gemini api documentation," 2025. https://ai.google.dev
 
 [21] W. Web.js, "Whatsapp web.js documentation," 2025. https://wwebjs.dev
+
 ---
 Proyecto desarrollado como parte del curso de Prospectiva de IA
 Ingenieria Mecatronica y Sistemas Ciberfisicos
