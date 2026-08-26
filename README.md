@@ -2,7 +2,7 @@
 
 Este repositorio contiene la arquitectura backend, documentación y el reporte técnico del sistema modular multi-agente para la gestión inteligente de inventarios de alimentos utilizando **Vision Language Models (VLMs)** y **Large Language Models (LLMs)**.
 
-* **Reporte Técnico:** [Leer artículo en PDF](https://www.google.com/search?q=/ProspectivaTecnologica/assets/files/AlacenaInteligente.pdf)
+* **Reporte Técnico:** [Leer artículo en PDF](https://marthavlds1.github.io/ProspectivaTecnologica/assets/files/AlacenaInteligente.pdf)
 * **Sitio del Proyecto:** [Ver Presentación y Observabilidad](https://marthavlds1.github.io/ProspectivaTecnologica/proyecto/)
 
 ---
