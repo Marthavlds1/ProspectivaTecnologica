@@ -54,7 +54,7 @@ La arquitectura incorpora ademas una capa de observabilidad que registra latenci
 | WhatsApp | Interfaz conversacional via whatsapp-web.js |
 | Observabilidad | Dashboard con metricas en tiempo real de toda la arquitectura |
 
-El articulo tecnico completo: [ALACENA INTELIGENTE](<assets/files/ReporteProspectivaTecnologica (3).pdf>)
+El articulo tecnico completo: [A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management](<assets/files/AlacenaInteligente.pdf>)
 
 ---
 
