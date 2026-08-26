@@ -687,12 +687,9 @@ python -m uvicorn app.main:app --reload --port 8000
 | Recurso | Descripcion |
 |---|---|
 | [Repositorio en GitHub](https://github.com/Marthavlds1/ProspectivaTecnologica) | Codigo fuente completo del proyecto |
-| [Articulo tecnico IEEE (PDF)](./ReporteProspectivaTecnologica.pdf) | A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
+| [Articulo tecnico IEEE (PDF)](assets/files/ReporteProspectivaTecnologica (3).pdf) | A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
 | [Descargar ZIP del proyecto](https://github.com/RenBadillo/ProspectivaTecnologica) | Descarga directa de todo el repositorio en formato ZIP |
 | [.env.example](./backend/app/vision/.env.example) | Plantilla de variables de entorno necesarias para ejecutar el sistema |
-
----
-Sí, para un proyecto de este nivel conviene que la conclusión no solo hable del sistema en general, sino también de lo que aprendieron sobre el **LLM**, el **VLM**, la arquitectura **multiagente** y las decisiones de diseño. Aquí tienes una versión más completa y realista:
 
 ---
 
