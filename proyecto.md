@@ -54,8 +54,7 @@ La arquitectura incorpora ademas una capa de observabilidad que registra latenci
 | WhatsApp | Interfaz conversacional via whatsapp-web.js |
 | Observabilidad | Dashboard con metricas en tiempo real de toda la arquitectura |
 
-El articulo tecnico completo: [A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management](<assets/files/AlacenaInteligente.pdf>)
-
+El articulo tecnico completo: [A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management](/ProspectivaTecnologica/assets/files/AlacenaInteligente.pdf)
 ---
 
 ## 2. Problema que resuelve
@@ -687,7 +686,7 @@ python -m uvicorn app.main:app --reload --port 8000
 | Recurso | Descripcion |
 |---|---|
 | [Repositorio en GitHub](https://github.com/Marthavlds1/ProspectivaTecnologica) | Codigo fuente completo del proyecto |
-| [Articulo tecnico IEEE (PDF)](<assets/files/ReporteProspectivaTecnologica (3).pdf>)| A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
+| [Articulo tecnico IEEE (PDF)](/ProspectivaTecnologica/assets/files/AlacenaInteligente.pdf)| A Multi-Agent Architecture Based on Vision and Language Models for Intelligent Food Inventory Management |
 | [Descargar ZIP del proyecto](https://github.com/RenBadillo/ProspectivaTecnologica) | Descarga directa de todo el repositorio en formato ZIP |
 | [.env.example](./backend/app/vision/.env.example) | Plantilla de variables de entorno necesarias para ejecutar el sistema |
 
